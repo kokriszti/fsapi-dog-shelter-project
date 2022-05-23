@@ -17,12 +17,13 @@ export class DogEditComponent implements OnInit, OnDestroy {
   public subscription?: Subscription;
   public selectedDog?: DogModel;
   public maxDate: string = "";
+  public minDate: string = "2002-01-01";
 
   public dogForm: FormGroup = new FormGroup({
     name: new FormControl("", [Validators.required, Validators.maxLength(50), Validators.pattern(/^[a-záéíóöőúüűA-ZÁÉÍÓÖŐÚÜŰ0-9 ./]+$/)]),
     gender: new FormControl("", Validators.required),
     size: new FormControl("", Validators.required),
-    dateOfBirth: new FormControl("", Validators.required),
+    dateOfBirth: new FormControl("", [Validators.required, this.dateValidator]),
     description: new FormControl("", Validators.required),
     imgSrc: new FormControl("", Validators.required),
     isVaccinated: new FormControl("", Validators.required),
@@ -96,6 +97,17 @@ export class DogEditComponent implements OnInit, OnDestroy {
 
     }  //if vége
   }   //onInit vége
+
+  public dateValidator(dateInput: AbstractControl): ValidationErrors | null {
+    //minimum dátum beállítása következő napra
+    const dateToday: Date = new Date()
+    //ha egy számjegyű, 0-t tegyen elé
+    const month: string = dateToday.getMonth() < 9 ? `0${dateToday.getMonth() + 1}` : `${dateToday.getMonth() + 1}`
+    const day: string = dateToday.getDate() < 10 ? `0${dateToday.getDate()}` : `${dateToday.getDate()}`
+
+    const today = `${dateToday.getFullYear()}-${month}-${day}`
+    return dateInput.value <= today && dateInput.value >= "2002-01-01"? null : {dateError: "Valós, jövőbeli dátumot adj meg!"}
+  }
 
   ngOnDestroy(): void {
     this.subscription?.unsubscribe();

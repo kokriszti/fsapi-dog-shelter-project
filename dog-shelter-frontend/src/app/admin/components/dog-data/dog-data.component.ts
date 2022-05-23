@@ -5,6 +5,7 @@ import { DogModel } from 'src/app/models/dog.model';
 import { DogService } from 'src/app/services/dog.service';
 import {AbstractControl, FormControl, FormGroup, ValidationErrors, Validators} from "@angular/forms";
 import {OwnerModel} from "../../../models/owner.model";
+import {DateService} from "../../../services/date.service";
 
 @Component({
   selector: 'app-dog-data',
@@ -18,6 +19,7 @@ export class DogDataComponent implements OnInit, OnDestroy {
   public selectedDog?: DogModel;
   public adoptionEditMode: boolean = false;
   public minDate: string = ""
+  public maxDate: string = "";
 
   public ownerForm: FormGroup = new FormGroup({
     ownerLastName: new FormControl("", [Validators.required, Validators.maxLength(40), Validators.pattern(/^[a-záéíóöőúüűA-ZÁÉÍÓÖŐÚÜŰ. ]+$/)]),
@@ -34,17 +36,15 @@ export class DogDataComponent implements OnInit, OnDestroy {
 
   constructor(private activatedRoute: ActivatedRoute,
               private dogService: DogService,
+              private dateService: DateService,
               private router: Router) { }
 
   ngOnInit(): void {
+    //max dátum ma:
+    this.maxDate = this.dateService.dateToString(0)
+    //min dátum egy héttel korább:
+    this.minDate = this.dateService.dateToString(-7)
 
-    //minimum dátum beállítása egy hétre vissza
-    const dateWeekBack: Date = new Date(new Date().getTime() - 604800000)
-    //ha egy számjegyű, 0-t tegyen elé
-    const month: string = dateWeekBack.getMonth() < 9 ? `0${dateWeekBack.getMonth() + 1}` : `${dateWeekBack.getMonth() + 1}`
-    const day: string = dateWeekBack.getDate() < 10 ? `0${dateWeekBack.getDate()}` : `${dateWeekBack.getDate()}`
-
-    this.minDate = `${dateWeekBack.getFullYear()}-${month}-${day}`
 
     this.subscription = this.activatedRoute.paramMap.subscribe({
       next: (param) => {this.idReadFromRoute = param.get("id")},
@@ -68,8 +68,15 @@ export class DogDataComponent implements OnInit, OnDestroy {
     const month: string = dateWeekBack.getMonth() < 9 ? `0${dateWeekBack.getMonth() + 1}` : `${dateWeekBack.getMonth() + 1}`
     const day: string = dateWeekBack.getDate() < 10 ? `0${dateWeekBack.getDate()}` : `${dateWeekBack.getDate()}`
 
-    let weekBack = `${dateWeekBack.getFullYear()}-${month}-${day}`
-    return dateInput.value >= weekBack ? null : {dateError: "Valós dátumot adj meg!"}
+    const weekBack = `${dateWeekBack.getFullYear()}-${month}-${day}`
+
+    const dateToday: Date = new Date()
+    //ha egy számjegyű, 0-t tegyen elé
+    const todayMonth: string = dateToday.getMonth() < 9 ? `0${dateToday.getMonth() + 1}` : `${dateToday.getMonth() + 1}`
+    const todayDay: string = dateToday.getDate() < 10 ? `0${dateToday.getDate()}` : `${dateToday.getDate()}`
+
+    const today = `${dateToday.getFullYear()}-${todayMonth}-${todayDay}`
+    return dateInput.value >= weekBack && dateInput.value <= today ? null : {dateError: "Valós dátumot adj meg!"}
   }
 
   public editAdoption(): void {

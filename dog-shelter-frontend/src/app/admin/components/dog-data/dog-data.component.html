@@ -102,7 +102,7 @@
 
               <div class="my-3">
                 <label for="dateOfAdoption" class="form-label">Örökbefogadás dátuma</label>
-                <input type="date" [min]="minDate" formControlName="dateOfAdoption" name="dateOfAdoption" id="dateOfAdoption">
+                <input type="date" [min]="minDate" [max]="maxDate" formControlName="dateOfAdoption" name="dateOfAdoption" id="dateOfAdoption">
                 <small *ngIf="ownerForm.get('dateOfAdoption')?.invalid && ownerForm.get('dateOfAdoption')?.touched" class="text-danger">Érvénytelen dátum!</small>
               </div>
               <button class="hm-btn text-white" [disabled]="ownerForm.invalid" (click)="adopt()"><i class="fa-solid fa-paw"></i> Örökbe adás</button>

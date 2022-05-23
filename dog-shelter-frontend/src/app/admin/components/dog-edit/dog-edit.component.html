@@ -4,7 +4,7 @@
       <div>
         <label for="dogName" class="form-label"> Név </label>
         <input formControlName="name" type="text" class="form-control" id="dogName" />
-        <small *ngIf="dogForm.get('name')?.invalid && dogForm.get('name')?.touched" class="text-danger">Érvénytelen vezetéknév!</small>
+        <small *ngIf="dogForm.get('name')?.invalid && dogForm.get('name')?.touched" class="text-danger">Érvénytelen név!</small>
       </div>
 
       <div class="col-12">
@@ -32,9 +32,11 @@
       </div>
 
       <div>
-        <label for="dateOfBirth" class="form-label"> Születési dátum </label>
-        <input type="date" [max]="maxDate" formControlName="dateOfBirth" id="dateOfBirth">
-        <small *ngIf="dogForm.get('dateOfBirth')?.invalid && dogForm.get('dateOfBirth')?.touched" class="text-danger">Válassz születési dátumot</small>
+        <div>
+          <label for="dateOfBirth" class="form-label"> Születési dátum </label>
+          <input type="date" [max]="maxDate" [min]="minDate" formControlName="dateOfBirth" id="dateOfBirth">
+        </div>
+        <small *ngIf="dogForm.get('dateOfBirth')?.invalid && dogForm.get('dateOfBirth')?.touched" class="text-danger">Adj meg érvényes születési dátumot!</small>
       </div>
 
       <div>
@@ -119,8 +121,8 @@
 
 
       <div class="col-12">
-        <!--          <button [disabled]="dogForm.invalid" class="btn btn-primary">{{btnText}}</button>-->
-        <button class="btn btn-primary">Mentés</button>
+        <button [disabled]="dogForm.invalid" class="btn btn-primary">Mentés</button>
+<!--        <button class="btn btn-primary">Mentés</button>-->
       </div>
 
 
