@@ -1,0 +1,22 @@
+.dog-background {
+  background: url("../../../../assets/dog-detail-backgrounds/background2.jpg");
+  background-repeat: repeat-y;
+  background-position: center;
+  background-size: cover;
+}
+
+.adjust-top-color {
+  background-color: #363435;
+}
+
+.hm-btn {
+  background-color: #ffa101;
+  text-decoration: none;
+  display: inline-block;
+  padding: 5px;
+  border-radius: 5px;
+  border: none
+}
+.hm-btn:hover {
+  font-weight: bolder;
+}

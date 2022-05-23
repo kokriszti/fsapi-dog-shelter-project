@@ -1,0 +1,60 @@
+<div class="cotainer-fluid title-container">
+
+
+  <!--1. sor: Cím -->
+  <div class="container">
+    <div class="row">
+      <h1 class="text-center text-white title-line">Gazdikeresőink</h1>
+    </div>
+  </div>
+  <!--2. sor: Kereső szekció -->
+  <div class="container">
+    <div class="row text-white rounded p-2 mt-2 mb-5 mb-sm-3 hm-bg-color">
+
+      <div class="col-md-4">
+        <input type="text"  class="form-control" id="nameInput" [formControl]="nameInput" (keyup)="getDogsByFilter()" placeholder="Kezdje el begépelni a nevet">
+      </div>
+
+      <div class="col-md-4">
+        <select class="form-select" id="subjectInput"  [formControl]="sizeInput" (change)="getDogsByFilter()">
+          <option value="">Minden méret</option>
+          <option value="kicsi">Kicsi</option>
+          <option value="közepes">Közepes</option>
+          <option value="nagy">Nagy</option>
+
+        </select>
+      </div>
+
+      <div class="col-md-4">
+        <select class="form-select"  id="genderInput" [formControl]="genderInput" (change)="getDogsByFilter()">
+          <option value="">Mind</option>
+          <option value="kan">Kan</option>
+          <option value="szuka">Szuka</option>
+        </select>
+      </div>
+
+    </div>
+  </div>
+</div>
+<!--3. sor: Kártyák szekció -->
+<div class="container">
+  <div class="row">
+
+    <div class="col-sm-6 col-md-4 col-lg-3" *ngFor="let dog of dogs">
+      <div class="hm-card mb-3 mb-md-2">
+        <img [src]="dog.imgSrc" class="hm-card-img mb-2" alt="...">
+        <div class=".hm-card-body">
+          <h5 class=".hm-card-title">{{dog.name}}</h5>
+          <p class=".hm-card-text"><i class="fa-solid fa-arrows-up-down fa-xs"></i> Termet: {{dog.size}}</p>
+          <p class=".hm-card-text">
+            <i *ngIf="dog.gender === 'szuka'" class="fa-solid fa-venus fa-xs"></i>
+            <i *ngIf="dog.gender === 'kan'" class="fa-solid fa-mars fa-xs"></i> Nem: {{dog.gender}}
+          </p>
+          <a class="hm-btn" [routerLink]="'/dogs/' + dog.id">Részletek</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+

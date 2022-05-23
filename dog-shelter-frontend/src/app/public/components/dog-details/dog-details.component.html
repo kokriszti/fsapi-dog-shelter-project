@@ -1,0 +1,54 @@
+<div class="container-fluid background">
+  <div class="row d-felx justify-content-center">
+    <div class="col-sm-8 col-md-6 col-xl-4">
+
+      <div class="hm-card bg-white my-5">
+        <div class="hm-card-img-container">
+
+          <img [src]="selectedDog?.imgSrc" class="hm-card-img" alt="...">
+        </div>
+        <div class="card-body">
+          <h3 class="card-title">{{selectedDog?.name}}</h3>
+          <p class="hm-card-text-email text-start"> <span class="fst-italic fw-bolder text-muted">
+            <i class="fa-solid fa-arrows-up-down"></i>
+            Termet: </span>  <span class="hm-card-mail">{{selectedDog?.size}}</span></p>
+          <p class="hm-card-text-email text-start"> <span class="fst-italic fw-bolder text-muted">
+            <i *ngIf="selectedDog?.gender === 'szuka'" class="fa-solid fa-venus"></i>
+            <i *ngIf="selectedDog?.gender === 'kan'" class="fa-solid fa-mars"></i>
+            Nem: </span>  <span class="hm-card-mail">{{selectedDog?.gender}}</span></p>
+          <p class="hm-card-text-email text-start"> <span class="fst-italic fw-bolder text-muted">
+            <i class="fa-solid fa-calendar-days"></i>
+            Születési idő: </span>  <span class="hm-card-mail">{{selectedDog?.dateOfBirth}}</span></p>
+          <p *ngIf="selectedDog?.activity" class="hm-card-text-email text-start">
+            <span class="fst-italic fw-bolder text-muted">
+              <i class="fa-solid fa-bolt-lightning"></i>
+              Aktivitási szint: </span>
+            <span class="hm-card-mail">{{selectedDog?.activity}}</span>
+          </p>
+          <p *ngIf="selectedDog?.hasOwnProperty('toChild')" class="hm-card-text-email text-start">
+            <span class="fst-italic fw-bolder text-muted">
+              <i class="fa-solid fa-baby"></i>
+              Gyerek mellé: </span>
+            <span class="hm-card-mail">{{selectedDog?.toChild ? "igen" : "nem"}}</span>
+          </p>
+          <p *ngIf="selectedDog?.hasOwnProperty('toFlat')" class="hm-card-text-email text-start">
+            <span class="fst-italic fw-bolder text-muted">
+              <i class="fa-solid fa-building"></i>
+              Lakásba: </span>
+            <span class="hm-card-mail">{{selectedDog?.toFlat ? "igen" : "nem"}}</span>
+          </p>
+          <!-- ngIf-fel aktivitás szint, lakásba, gyerek mellé-->
+          <p class="hm-card-text text-start fst-italic fw-bolder text-muted mb-1">Jellemzés:</p>
+          <p class="card-text text-start">{{selectedDog?.description}}</p>
+          <div class="mb-2">
+            <a class="hm-btn text-white" [routerLink]='"/appointment/" + selectedDog?.id'><i class="fa-solid fa-paw"></i> Időpontot foglalok</a>
+          </div>
+          <div>
+            <a class="hm-btn text-white" routerLink="/dogs"><i class="fa-solid fa-caret-left"></i> Vissza a gazdikeresőkhöz</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

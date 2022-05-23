@@ -1,0 +1,46 @@
+<div class="container-fluid  vh-100 adjust-top-color">
+  <div class="row">
+    <div class="col pt-2">
+      <button class="btn btn-outline-light bg-secondary text-light btn-sm" routerLink="">&#8678; Vissza a főoldalra</button>
+    </div>
+  </div>
+
+  <div class="row dog-background d-flex justify-content-center py-5">
+
+    <div class="col-md-8 bg-white rounded">
+
+      <fieldset [formGroup]="userForm">
+        <legend>Belépési adatok</legend>
+
+        <div class="my-3">
+          <label for="registerLoginName" class="form-label">Felhasználónév</label>
+          <input formControlName="username" type="text" class="form-control" id="registerLoginName" aria-describedby="emailHelp">
+        </div>
+
+        <div class="my-3">
+          <label for="registerLoginPassword" class="form-label">Jelszó</label>
+          <input formControlName="password" type="password" class="form-control" id="registerLoginPassword">
+        </div>
+
+        <div class="my-3">
+          <label for="confirmLoginPassword" class="form-label">Jelszó újra</label>
+          <input formControlName="confirmPassword" type="password" class="form-control" id="confirmLoginPassword">
+        </div>
+
+      </fieldset>
+
+
+      <fieldset>
+        <legend>Örökbefogadási kérdőív</legend>
+        <app-adoption-form [btnText] = "btnText" (submitEE)="saveUser($event)"></app-adoption-form>
+      </fieldset>
+
+
+      <p>Már van felhasználói fiókod?</p>
+      <button class="btn btn-primary mb-3" routerLink="/login">Belépés</button>
+
+    </div>
+
+  </div>
+
+</div>

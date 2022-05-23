@@ -1,0 +1,102 @@
+<div class="container-fluid dog-background adjust-top-color">
+
+  <div class="row  d-flex justify-content-center py-5">
+
+    <div class="col-md-8 bg-white rounded">
+
+      <div *ngIf="!editPassword" class="hm-card bg-white my-5">
+
+        <div class="card-body">
+
+          <p class="hm-card-text-email text-start"> <span class="fst-italic fw-bolder text-muted">
+            Felhasználónév: </span>  <span class="hm-card-mail">{{selectedUser?.username}}</span></p>
+          <p class="hm-card-text-email text-start"> <span class="fst-italic fw-bolder text-muted">
+            Jelszó: </span>  <button class="hm-btn text-white mb-2" (click)="changePassword()"><i class="fa-solid fa-pencil"></i>Jelszó módosítása</button></p>
+
+
+        </div>
+      </div>
+
+      <fieldset *ngIf="editPassword" [formGroup]="userForm">
+
+          <legend>Belépési adatok</legend>
+
+        <div class="my-3">
+          <label for="registerLoginName" class="form-label">Felhasználónév</label>
+          <input readonly formControlName="username" type="text" class="form-control-plaintext" id="registerLoginName" aria-describedby="emailHelp">
+        </div>
+
+        <div class="my-3">
+          <label for="registerLoginPassword" class="form-label">Jelszó</label>
+          <input formControlName="password" type="password" class="form-control" id="registerLoginPassword">
+        </div>
+
+        <div class="my-3">
+          <label for="confirmLoginPassword" class="form-label">Jelszó újra</label>
+          <input formControlName="confirmPassword" type="password" class="form-control" id="confirmLoginPassword">
+        </div>
+
+        <button class="hm-btn text-white mb-2" (click)="patchPassword()"><i class="fa-solid fa-pencil"></i>Módosítás</button>
+
+      </fieldset>
+
+      <hr>
+
+      <div *ngIf="!editMode" class="hm-card bg-white my-5">
+        <div class="d-flex justify-content-between">
+
+
+
+        <div class="card-body">
+          <app-adoption-data [isChild]="isChild" [idFromParent]="idReadFromRoute"></app-adoption-data>
+
+
+        </div>
+          <button class="hm-btn text-white mb-2" (click)="toggleEditMode()"><i class="fa-solid fa-pencil"></i>Módosítás</button>
+        </div>
+      </div>
+
+
+
+      <fieldset *ngIf="editMode">
+          <legend>Örökbefogadási kérdőív</legend>
+          <app-adoption-form [btnText]="btnText" [idReadFromRoute]="idReadFromRoute" [editMode]="editMode" (submitEE)="updateUser($event)"></app-adoption-form>
+      </fieldset>
+
+      <hr *ngIf="userAppointment">
+
+      <div *ngIf="userAppointment" class="card-body">
+        <p class="hm-card-text-email text-start"> <span class="fst-italic fw-bolder text-muted">
+            Lefoglalt időpont: </span></p>
+        <div class="container">
+          <table class="table table-hover">
+            <thead>
+            <tr>
+              <th scope="col">Dátum</th>
+              <th scope="col">Időpont</th>
+              <th scope="col">Kutya</th>
+              <th scope="col">Megjegyzés</th>
+              <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr >
+              <td>{{userAppointment?.date}}</td>
+              <td>{{userAppointment?.time}}</td>
+              <td><a routerLink="//dogs/{{userAppointment?.dogId}}">{{userAppointment?.dogName}}</a></td>
+              <td>{{userAppointment?.comment}}</td>
+              <td><button class="hm-btn text-white mb-2">Időpont törlése</button></td>
+            </tr>
+
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+
+
+    </div>
+
+  </div>
+
+</div>

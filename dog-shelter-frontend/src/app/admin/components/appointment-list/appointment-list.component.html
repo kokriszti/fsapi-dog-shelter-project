@@ -1,0 +1,25 @@
+<div class="container">
+  <table class="table table-hover">
+    <thead>
+    <tr>
+      <th scope="col">Dátum</th>
+      <th scope="col">Időpont</th>
+      <th scope="col">Kutya</th>
+      <th scope="col">Ügyfél</th>
+      <th scope="col">Megjegyzés</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let appointment of appointments">
+      <td>{{appointment.date}}</td>
+      <td>{{appointment.time}}</td>
+      <td><a routerLink="/admin/dogs/{{appointment.dogId}}">{{appointment.dogName}}</a></td>
+      <td>{{appointment.userName}} <i class="fa-solid fa-circle-info" routerLink="user-data/{{appointment.userId}}"></i></td>
+      <td>{{appointment.comment}}</td>
+    </tr>
+
+    </tbody>
+  </table>
+</div>
+
+<a href=""></a>

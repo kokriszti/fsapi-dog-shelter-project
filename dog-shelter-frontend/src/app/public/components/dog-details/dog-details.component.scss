@@ -1,0 +1,50 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+.background {
+  background: url("../../../../assets/dog-detail-backgrounds/background2grey.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+.hm-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 0;
+  word-wrap: break-word;
+  background-clip: border-box;
+  text-align: center;
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 0 20px 15px #ffffff14;
+  border: 10px solid #ffa101;
+}
+.hm-card-img-container {
+  width: 100%;
+  max-width: 250px;
+}
+.hm-card-img {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  border-radius: 5px;
+  padding: 5px;
+  border-right: 4px solid #ffa101;
+  border-bottom: 4px solid #ffa101;
+}
+.hm-card-mail {
+  color: #3dbfb8;
+}
+.hm-btn {
+  background-color: #ffa101;
+  text-decoration: none;
+  display: inline-block;
+  padding: 5px;
+  border-radius: 5px;
+}
+.hm-btn:hover {
+  font-weight: bolder;
+}

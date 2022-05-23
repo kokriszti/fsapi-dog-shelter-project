@@ -1,0 +1,122 @@
+<div class="container-fluid background">
+  <div class="row d-felx justify-content-center">
+    <div class="col-sm-8 col-md-6 col-xl-4">
+
+      <div class="hm-card bg-white my-5">
+
+        <div class="hm-card-img-container">
+          <img [src]="selectedDog?.imgSrc" class="hm-card-img" alt="...">
+        </div>
+
+        <div class="card-body">
+          <h3 class="card-title">{{selectedDog?.name}}</h3>
+          <p class="hm-card-text-email text-start"> <span class="fst-italic fw-bolder text-muted">
+            <i class="fa-solid fa-arrows-up-down"></i>
+            Termet: </span>  <span class="hm-card-mail">{{selectedDog?.size}}</span></p>
+          <p class="hm-card-text-email text-start"> <span class="fst-italic fw-bolder text-muted">
+            <i *ngIf="selectedDog?.gender === 'szuka'" class="fa-solid fa-venus"></i>
+            <i *ngIf="selectedDog?.gender === 'kan'" class="fa-solid fa-mars"></i>
+            Nem: </span>  <span class="hm-card-mail">{{selectedDog?.gender}}</span></p>
+          <p class="hm-card-text-email text-start"> <span class="fst-italic fw-bolder text-muted">
+            <i class="fa-solid fa-calendar-days"></i>
+            Születési idő: </span>  <span class="hm-card-mail">{{selectedDog?.dateOfBirth}}</span></p>
+          <p *ngIf="selectedDog?.activity" class="hm-card-text-email text-start">
+            <span class="fst-italic fw-bolder text-muted">
+              <i class="fa-solid fa-bolt-lightning"></i>
+              Aktivitási szint: </span>
+            <span class="hm-card-mail">{{selectedDog?.activity}}</span>
+          </p>
+          <p *ngIf="selectedDog?.hasOwnProperty('toChild')" class="hm-card-text-email text-start">
+            <span class="fst-italic fw-bolder text-muted">
+              <i class="fa-solid fa-baby"></i>
+              Gyerek mellé: </span>
+            <span class="hm-card-mail">{{selectedDog?.toChild ? "igen" : "nem"}}</span>
+          </p>
+          <p *ngIf="selectedDog?.hasOwnProperty('toFlat')" class="hm-card-text-email text-start">
+            <span class="fst-italic fw-bolder text-muted">
+              <i class="fa-solid fa-building"></i>
+              Lakásba: </span>
+            <span class="hm-card-mail">{{selectedDog?.toFlat ? "igen" : "nem"}}</span>
+          </p>
+          <!-- ngIf-fel aktivitás szint, lakásba, gyerek mellé-->
+          <p class="hm-card-text text-start fst-italic fw-bolder text-muted mb-1">Jellemzés:</p>
+          <p class="card-text text-start">{{selectedDog?.description}}</p>
+          <div class="mb-2">
+            <a class="hm-btn text-white" routerLink="form"><i class="fa-solid fa-pencil"></i> Adatok szerkesztése</a>
+          </div>
+          <div class="mb-2">
+            <a class="hm-btn text-white" (click)="editAdoption()"><i class="fa-solid fa-paw"></i> Örökbe adás</a>
+          </div>
+<!--          <div>-->
+<!--            <a class="hm-btn text-white" routerLink="/dogs"><i class="fa-solid fa-caret-left"></i> Vissza a listához</a>-->
+<!--          </div>-->
+
+          <div *ngIf="adoptionEditMode" class="owner-form-container">
+
+            <form [formGroup]="ownerForm">
+              <legend>Örökbefogadó adatai</legend>
+
+              <div class="my-3">
+                <label for="ownerLastName" class="form-label">Vezetéknév</label>
+                <input formControlName="ownerLastName" type="text" class="form-control" id="ownerLastName">
+                <small *ngIf="ownerForm.get('ownerLastName')?.invalid && ownerForm.get('ownerLastName')?.touched" class="text-danger">Érvénytelen válasz!</small>
+              </div>
+              <div class="my-3">
+                <label for="ownerFirstName" class="form-label">Keresztnév</label>
+                <input formControlName="ownerFirstName" type="text" class="form-control" id="ownerFirstName">
+                <small *ngIf="ownerForm.get('ownerFirstName')?.invalid && ownerForm.get('ownerFirstName')?.touched" class="text-danger">Érvénytelen válasz!</small>
+              </div>
+              <div class="my-3">
+                <label for="ownerEmail" class="form-label">Email-cím</label>
+                <input formControlName="ownerEmail" type="email" class="form-control" id="ownerEmail">
+                <small *ngIf="ownerForm.get('ownerEmail')?.invalid && ownerForm.get('ownerEmail')?.touched" class="text-danger">Valós email-címet adj meg!</small>
+              </div>
+              <div class="my-3">
+                <label for="ownerPhone" class="form-label">Telefonszám</label>
+                <input formControlName="ownerPhone" type="text" class="form-control" id="ownerPhone">
+                <small *ngIf="ownerForm.get('ownerPhone')?.invalid && ownerForm.get('ownerPhone')?.touched" class="text-danger">
+                  A telefonszámot csak számjegyekkel, elválasztás nélkül add meg! (Pl: 06301234567)
+                </small>
+              </div>
+              <div class="my-3" formGroupName="ownerAddress">
+                <div class="my-3">
+                  <label for="ownerZip" class="form-label">Irányítószám</label>
+                  <input formControlName="zip" type="text" class="form-control" id="ownerZip">
+                  <small *ngIf="ownerForm.get('ownerAddress.zip')?.invalid && ownerForm.get('ownerAddress.zip')?.touched" class="text-danger">
+                    Az irányítószámnak négy számjegyet kell tartalmaznia.
+                  </small>
+                </div>
+                <div class="my-3">
+                  <label for="ownerCity" class="form-label">Település</label>
+                  <input formControlName="city" type="text" class="form-control" id="ownerCity">
+                  <small *ngIf="ownerForm.get('ownerAddress.city')?.invalid && ownerForm.get('ownerAddress.city')?.touched" class="text-danger">Érvénytelen válasz!</small>
+                </div>
+                <div class="my-3">
+                  <label for="streetAndNr" class="form-label">Utcanév, házszám</label>
+                  <input formControlName="streetAndNr" type="text" class="form-control" id="streetAndNr">
+                  <small *ngIf="ownerForm.get('ownerAddress.streetAndNr')?.invalid && ownerForm.get('ownerAddress.streetAndNr')?.touched" class="text-danger">
+                    A mező betűt, számot, pont(.) és perjel(/) karaktert tartalmazhat.
+                  </small>
+                </div>
+              </div>
+
+              <div class="my-3">
+                <label for="dateOfAdoption" class="form-label">Örökbefogadás dátuma</label>
+                <input type="date" [min]="minDate" formControlName="dateOfAdoption" name="dateOfAdoption" id="dateOfAdoption">
+                <small *ngIf="ownerForm.get('dateOfAdoption')?.invalid && ownerForm.get('dateOfAdoption')?.touched" class="text-danger">Érvénytelen dátum!</small>
+              </div>
+              <button class="hm-btn text-white" [disabled]="ownerForm.invalid" (click)="adopt()"><i class="fa-solid fa-paw"></i> Örökbe adás</button>
+<!--              <button class="hm-btn text-white" (click)="adopt()"><i class="fa-solid fa-paw"></i> Örökbe adás</button>-->
+
+
+            </form>
+
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+

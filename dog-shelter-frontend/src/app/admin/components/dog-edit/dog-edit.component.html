@@ -1,0 +1,137 @@
+  <div class="container">
+    <form [formGroup]="dogForm" (ngSubmit)="onSubmit()" class="row g-3">
+
+      <div>
+        <label for="dogName" class="form-label"> Név </label>
+        <input formControlName="name" type="text" class="form-control" id="dogName" />
+        <small *ngIf="dogForm.get('name')?.invalid && dogForm.get('name')?.touched" class="text-danger">Érvénytelen vezetéknév!</small>
+      </div>
+
+      <div class="col-12">
+        <label class="form-label">Ivar</label>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" formControlName="gender" value="kan" id="genderMale" >
+          <label class="form-check-label" for="genderMale">Kan</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" formControlName="gender" value="szuka" id="genderFemale">
+          <label class="form-check-label" for="genderFemale">Szuka</label>
+        </div>
+        <small *ngIf="dogForm.get('gender')?.invalid && dogForm.get('gender')?.touched" class="text-danger">Válaszz ivart!</small>
+      </div>
+
+      <div>
+        <label for="size" class="form-label">Méret</label>
+        <select formControlName="size" id="size" class="form-select">
+          <option disabled hidden value="">Válaszd ki a méretet</option>
+          <option value="kicsi">Kicsi</option>
+          <option value="közepes">Közepes</option>
+          <option value="nagy">Nagy</option>
+        </select>
+        <small *ngIf="dogForm.get('size')?.invalid && dogForm.get('size')?.touched" class="text-danger">Érvénytelen válasz!</small>
+      </div>
+
+      <div>
+        <label for="dateOfBirth" class="form-label"> Születési dátum </label>
+        <input type="date" [max]="maxDate" formControlName="dateOfBirth" id="dateOfBirth">
+        <small *ngIf="dogForm.get('dateOfBirth')?.invalid && dogForm.get('dateOfBirth')?.touched" class="text-danger">Válassz születési dátumot</small>
+      </div>
+
+      <div>
+        <label for="description" class="form-label"> Jellemzés </label>
+        <textarea formControlName="description" class="form-control" id="description" rows="3"></textarea>
+        <small *ngIf="dogForm.get('description')?.invalid && dogForm.get('description')?.touched" class="text-danger">Írj jellemzést!</small>
+      </div>
+
+      <div>
+        <label for="imgSrc" class="form-label"> Kép elérési útvonala </label>
+        <input formControlName="imgSrc" type="text" class="form-control" id="imgSrc" />
+        <small *ngIf="dogForm.get('imgSrc')?.invalid && dogForm.get('imgSrc')?.touched" class="text-danger">Add meg a kép elérési útvonalát!</small>
+      </div>
+
+      <div class="col-12">
+        <label class="form-label">Minden kötelező oltást megkapott?</label>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" formControlName="isVaccinated" value="Igen" id="vaccinatedYes" >
+          <label class="form-check-label" for="vaccinatedYes">Igen</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" formControlName="isVaccinated" value="Nem" id="vaccinatedNo">
+          <label class="form-check-label" for="vaccinatedNo">Nem</label>
+        </div>
+        <small *ngIf="dogForm.get('isVaccinated')?.invalid && dogForm.get('isVaccinated')?.touched" class="text-danger">Jelöld az oltottstágot!</small>
+      </div>
+
+      <div class="col-12">
+        <label class="form-label">Ivartalanított?</label>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" formControlName="isSterilized" value="Igen" id="sterilizedYes" >
+          <label class="form-check-label" for="sterilizedYes">Igen</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" formControlName="isSterilized" value="Nem" id="sterilizedNo">
+          <label class="form-check-label" for="sterilizedNo">Nem</label>
+        </div>
+        <small *ngIf="dogForm.get('isSterilized')?.invalid && dogForm.get('isSterilized')?.touched" class="text-danger">Jelöld az ivartalanítottságot!</small>
+      </div>
+
+      <div>
+        <label for="kennelNr" class="form-label"> Kennel száma </label>
+        <input formControlName="kennelNr" type="number" class="form-control" id="kennelNr" />
+        <small *ngIf="dogForm.get('kennelNr')?.invalid && dogForm.get('kennelNr')?.touched" class="text-danger">
+          1 és 30 közötti számot adj meg!
+        </small>
+      </div>
+
+      <div>
+        <label for="activityInput" class="form-label">Aktivitási szint (ha megítélhető)</label>
+        <select formControlName="activity" id="activityInput" class="form-select">
+          <option value="">Nem ismert</option>
+          <option value="nyugodt">Nyugodt</option>
+          <option value="átlagos">Átlagos</option>
+          <option value="magas">Magas</option>
+        </select>
+      </div>
+
+      <div class="col-12">
+        <label class="form-label">Gyerek mellé (ha megítélhető)</label>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" formControlName="toChild" value="Igen" id="toChildYes" (click)="toggleRadioYes('toChild')">
+          <label class="form-check-label" for="toChildYes">Igen</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" formControlName="toChild" value="Nem" id="toChildNo" (click)="toggleRadioNo('toChild')">
+          <label class="form-check-label" for="toChildNo">Nem</label>
+        </div>
+      </div>
+
+      <div class="col-12">
+        <label class="form-label">Lakásba (ha megítélhető)</label>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" formControlName="toFlat" value="Igen" id="toFlatYes" (click)="toggleRadioYes('toFlat')">
+          <label class="form-check-label" for="toFlatYes">Igen</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" formControlName="toFlat" value="Nem" id="toFlatNo" (click)="toggleRadioNo('toFlat')">
+          <label class="form-check-label" for="toFlatNo">Nem</label>
+        </div>
+      </div>
+
+
+      <div class="col-12">
+        <!--          <button [disabled]="dogForm.invalid" class="btn btn-primary">{{btnText}}</button>-->
+        <button class="btn btn-primary">Mentés</button>
+      </div>
+
+
+    </form>
+
+  </div>
+
+
+
+<!--  toDo: select disabled nem szürke-->
+
+
+
+

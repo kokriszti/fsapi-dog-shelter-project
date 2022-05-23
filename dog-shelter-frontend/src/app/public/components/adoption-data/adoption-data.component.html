@@ -1,0 +1,66 @@
+<div [ngClass]="{'container-fluid dog-background adjust-top-color' : !isChild}">
+
+  <div [ngClass]="{'row  d-flex justify-content-center py-5' : !isChild}">
+
+    <div [ngClass]="{'col-md-8 bg-white rounded' : !isChild}">
+
+      <div  [ngClass]="{'hm-card bg-white my-5' : !isChild}">
+
+        <div [ngClass]="{'card-body' : !isChild}">
+
+
+          <p class="hm-card-text-email text-start"> <span class="fst-italic fw-bolder text-muted">
+                      Vezetéknév: </span>  <span class="hm-card-mail">{{selectedUser?.adoptionForm?.lastName}}</span></p>
+          <p class="hm-card-text-email text-start"> <span class="fst-italic fw-bolder text-muted">
+                      Keresztnév: </span>  <span class="hm-card-mail">{{selectedUser?.adoptionForm?.firstName}}</span></p>
+          <p class="hm-card-text-email text-start"> <span class="fst-italic fw-bolder text-muted">
+                      Telefonszám: </span>  <span class="hm-card-mail">{{selectedUser?.adoptionForm?.phone}}</span></p>
+          <p class="hm-card-text-email text-start"> <span class="fst-italic fw-bolder text-muted">
+                      Email-cím: </span>  <span class="hm-card-mail">{{selectedUser?.adoptionForm?.email}}</span></p>
+          <p class="hm-card-text-email text-start"> <span class="fst-italic fw-bolder text-muted">
+                      Életkor: </span>  <span class="hm-card-mail">{{selectedUser?.adoptionForm?.age}}</span></p>
+          <p class="hm-card-text-email text-start"> <span class="fst-italic fw-bolder text-muted">
+                      Hányan élnek a háztartásban: </span>  <span class="hm-card-mail">{{selectedUser?.adoptionForm?.nrOfPplInHousehold}}</span></p>
+          <p class="hm-card-text-email text-start"> <span class="fst-italic fw-bolder text-muted">
+                      Ének gyerekek a háztartásban: </span>  <span class="hm-card-mail">{{selectedUser?.adoptionForm?.childrenInHousehold  ? "igen" : "nem"}}</span></p>
+          <p *ngIf="selectedUser?.adoptionForm?.hasOwnProperty('ageOfYoungestChild')" class="hm-card-text-email text-start"> <span class="fst-italic fw-bolder text-muted">
+                      Legkisebb gyerek életkora: </span>  <span class="hm-card-mail">{{selectedUser?.adoptionForm?.ageOfYoungestChild}}</span></p>
+          <p class="hm-card-text-email text-start"> <span class="fst-italic fw-bolder text-muted">
+                      Lakóhely típusa: </span>  <span class="hm-card-mail">{{selectedUser?.adoptionForm?.typeOfHouse}}</span></p>
+          <p class="hm-card-text-email text-start"> <span class="fst-italic fw-bolder text-muted">
+                      Jelenleg él másik kutya a háztartásban?: </span>  <span class="hm-card-mail">{{selectedUser?.adoptionForm?.otherDog  ? "igen" : "nem"}}</span></p>
+          <p class="hm-card-text-email text-start"> <span class="fst-italic fw-bolder text-muted">
+                      Jelenleg él másik háziállat a háztartásban: </span>  <span class="hm-card-mail">{{selectedUser?.adoptionForm?.otherPet  ? "igen" : "nem"}}</span></p>
+          <p *ngIf="selectedUser?.adoptionForm?.hasOwnProperty('otherPetDetails')" class="hm-card-text-email text-start"> <span class="fst-italic fw-bolder text-muted">
+                      Jelenlegi háziállat fajtája: </span>  <span class="hm-card-mail">{{selectedUser?.adoptionForm?.otherPetDetails}}</span></p>
+          <p class="hm-card-text-email text-start"> <span class="fst-italic fw-bolder text-muted">
+                      Egy átlagos napon hány órát lenne egyedül a kutya: </span>  <span class="hm-card-mail">{{selectedUser?.adoptionForm?.nrOfHoursAlone}}</span></p>
+          <p class="hm-card-text-email text-start"> <span class="fst-italic fw-bolder text-muted">
+                      Egy átlagos napon hányszor tudnád sétáltatni a kutyát: </span>  <span class="hm-card-mail">{{selectedUser?.adoptionForm?.nrOfDailyWalks}}</span></p>
+          <div class="hm-card-text-email text-start"> <span class="fst-italic fw-bolder text-muted">
+                      Mekkora kutyát keresel: </span>
+            <p class="hm-card-mail">
+              <span class="fst-italic fw-bolder text-muted">Kicsi: </span>{{selectedUser?.adoptionForm?.wantedSizeSmall  ? "igen" : "nem"}}</p>
+            <p class="hm-card-mail">
+              <span class="fst-italic fw-bolder text-muted">Közepes: </span>{{selectedUser?.adoptionForm?.wantedSizeMedium  ? "igen" : "nem"}}</p>
+            <p class="hm-card-mail">
+              <span class="fst-italic fw-bolder text-muted">Nagy: </span>{{selectedUser?.adoptionForm?.wantedSizeBig  ? "igen" : "nem"}}</p>
+          </div>
+          <div class="hm-card-text-email text-start"> <span class="fst-italic fw-bolder text-muted">
+                      Milyen korú kutyát keresel: </span>
+            <p class="hm-card-mail">
+              <span class="fst-italic fw-bolder text-muted">Kölyök: </span>{{selectedUser?.adoptionForm?.wantedAgePuppy  ? "igen" : "nem"}}</p>
+            <p class="hm-card-mail">
+              <span class="fst-italic fw-bolder text-muted">Fiatal: </span>{{selectedUser?.adoptionForm?.wantedAgeYoung  ? "igen" : "nem"}}</p>
+            <p class="hm-card-mail">
+              <span class="fst-italic fw-bolder text-muted">Felnőtt: </span>{{selectedUser?.adoptionForm?.wantedAgeAdult  ? "igen" : "nem"}}</p>
+            <p class="hm-card-mail">
+              <span class="fst-italic fw-bolder text-muted">Idős: </span>{{selectedUser?.adoptionForm?.wantedAgeOld  ? "igen" : "nem"}}</p>
+          </div>
+          <p class="hm-card-text text-start fst-italic fw-bolder text-muted mb-1">Bemutatkozás:</p>
+          <p class="card-text text-start">{{selectedUser?.adoptionForm?.introduction}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

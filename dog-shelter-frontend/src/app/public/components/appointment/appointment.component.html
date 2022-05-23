@@ -1,0 +1,59 @@
+<div class="container-fluid background">
+  <div class="row d-felx justify-content-center">
+    <div class="col-sm-8 col-md-6 col-xl-4">
+
+      <div class="hm-card bg-white my-5">
+        <div class="hm-card-img-container">
+
+          <img [src]="selectedDog?.imgSrc" class="hm-card-img" alt="...">
+        </div>
+        <div class="card-body">
+          <h3 class="card-title">{{selectedDog?.name}}</h3>
+
+          <form [formGroup]="appointmentForm" (ngSubmit)="onSubmit()" class="row g-3">
+            <p class="hm-card-text-email text-start">
+              <span class="fst-italic fw-bolder text-muted">
+                Válassz dátumot:
+              </span>
+            </p>
+            <input type="date" [min]="minDate" [max]="maxDate" formControlName="date">
+            <small *ngIf="appointmentForm.get('date')?.invalid && appointmentForm.get('date')?.touched" class="text-danger">
+                  <small *ngIf="appointmentForm.get('date')?.errors?.['required']">
+                              Kérjük, válassz dátumot!
+                  </small>
+              <small *ngIf="appointmentForm.get('date')?.errors?.['dateError']">
+                              Valós, idei dátumot válassz!
+              </small>
+            </small>
+
+            <p class="hm-card-text-email text-start">
+              <span class="fst-italic fw-bolder text-muted">
+                Válassz időpontot:
+              </span>
+            </p>
+            <div>
+              <select formControlName="time" id="inputTime" class="form-select">
+                <option value="8:00">8:00</option>
+                <option value="10:00">10:00</option>
+                <option value="12:00">12:00</option>
+                <option value="14:00">14:00</option>
+              </select>
+              <small *ngIf="appointmentForm.get('time')?.invalid && appointmentForm.get('time')?.touched" class="text-danger">Kérjük, válassz időpontot!</small>
+            </div>
+
+            <div>
+              <label for="inputComment" class="form-label">Megjegyzés</label>
+              <textarea formControlName="comment" class="form-control" id="inputComment" rows="3"></textarea>
+              <small *ngIf="appointmentForm.get('comment')?.invalid && appointmentForm.get('comment')?.touched" class="text-danger">Maximum 500 karakter</small>
+            </div>
+<!--            todo: disabled gomb színét állítani-->
+            <button class="hm-btn text-white mb-2" [disabled]=appointmentForm.invalid type="submit"><i class="fa-solid fa-paw"></i> Lefoglalom</button>
+          </form>
+
+          <a class="hm-btn text-white" [routerLink]="'/dogs/' + selectedDog?.id"><i class="fa-solid fa-caret-left"></i> Mégsem</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

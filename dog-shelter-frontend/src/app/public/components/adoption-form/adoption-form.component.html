@@ -1,0 +1,207 @@
+  <div class="row">
+
+    <div class="container">
+      <form [formGroup]="adoptionForm" (ngSubmit)="onSubmit()" class="row g-3">
+
+        <div>
+          <label for="inputlastName" class="form-label"> Vezetéknév </label>
+          <input formControlName="lastName" type="text" class="form-control" id="inputlastName" />
+          <small *ngIf="adoptionForm.get('lastName')?.invalid && adoptionForm.get('lastName')?.touched" class="text-danger">Érvénytelen válasz!</small>
+        </div>
+
+        <div>
+          <label for="inputfirstName" class="form-label"> Keresztnév </label>
+          <input formControlName="firstName" type="text" class="form-control" id="inputfirstName" />
+          <small *ngIf="adoptionForm.get('lastName')?.invalid && adoptionForm.get('lastName')?.touched" class="text-danger">Érvénytelen válasz!</small>
+        </div>
+
+        <div>
+          <label for="inputPhone" class="form-label"> Telefonszám </label>
+          <input formControlName="phone" type="text" class="form-control" id="inputPhone" />
+          <small *ngIf="adoptionForm.get('phone')?.invalid && adoptionForm.get('phone')?.touched" class="text-danger">
+            A telefonszámot csak számjegyekkel, elválasztás nélkül add meg! (Pl: 06301234567)
+          </small>
+        </div>
+
+        <div>
+          <label for="inputEmail" class="form-label">Email-cím</label>
+          <input
+            formControlName="email"
+            type="email"
+            class="form-control"
+            id="inputEmail"
+          />
+          <small *ngIf="adoptionForm.get('email')?.invalid && adoptionForm.get('email')?.touched" class="text-danger">Valós email-címet adj meg!</small>
+        </div>
+
+        <div>
+          <label for="inputAge" class="form-label"> Életkor </label>
+          <input formControlName="age" type="number" class="form-control" id="inputAge" />
+          <small *ngIf="adoptionForm.get('age')?.invalid && adoptionForm.get('age')?.touched" class="text-danger">18 és 100 közötti számot adj meg!</small>
+        </div>
+
+        <div>
+          <label for="inputNrOfPplInHousehold" class="form-label"> Hányan élnek a háztartásban? </label>
+          <input formControlName="nrOfPplInHousehold" type="number" class="form-control" id="inputNrOfPplInHousehold" />
+          <small *ngIf="adoptionForm.get('nrOfPplInHousehold')?.invalid && adoptionForm.get('nrOfPplInHousehold')?.touched" class="text-danger">1 és 20 közötti számot adj meg!</small>
+        </div>
+
+        <div class="col-12">
+          <label class="form-label">Él gyermek a háztartásban?</label>
+          <div class="form-check">
+            <input class="form-check-input" (change)="toggleHasChild($event)" type="radio" formControlName="childrenInHousehold" value="Igen" id="childrenInHouseholdYes" >
+            <label class="form-check-label" for="childrenInHouseholdYes">Igen</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" (change)="toggleHasChild($event)" type="radio" formControlName="childrenInHousehold" value="Nem" id="childrenInHouseholdNo">
+            <label class="form-check-label" for="childrenInHouseholdNo">Nem</label>
+          </div>
+          <small *ngIf="adoptionForm.get('childrenInHousehold')?.invalid && adoptionForm.get('childrenInHousehold')?.touched" class="text-danger">Jelezd, hogy él-e gyermek háztartásban!</small>
+        </div>
+
+        <!--Ha előző checkboxot bepipálta, feljön ez:-->
+        <div *ngIf="hasChild">
+          <label for="inputAgeOfYoungestChild" class="form-label">Legkisebb gyermek életkora</label>
+          <select formControlName="ageOfYoungestChild" id="inputAgeOfYoungestChild" class="form-select">
+            <option hidden disabled value="">Válaszd ki az életkort</option>
+            <option value="6 év alatt">6 év alatt</option>
+            <option value="6-12 év között">6-12 év között</option>
+            <option value="12 év felett">12 év felett</option>
+          </select>
+          <small *ngIf="adoptionForm.get('ageOfYoungestChild')?.invalid && adoptionForm.get('ageOfYoungestChild')?.touched" class="text-danger">
+            Ha él gyermek a háztartásban, jelöld meg az életkorát!
+          </small>
+        </div>
+
+        <div>
+          <label for="inputTypeOfHouse" class="form-label">Lakóhely típusa</label>
+          <select formControlName="typeOfHouse" id="inputTypeOfHouse" class="form-select">
+            <option value="" disabled hidden>Válaszd ki a lakóhely típusát</option>
+            <option value="Lakás">Lakás</option>
+            <option value="Családi ház">Családi ház</option>
+          </select>
+          <small *ngIf="adoptionForm.get('typeOfHouse')?.invalid && adoptionForm.get('typeOfHouse')?.touched" class="text-danger">Válaszd ki a lakóhely típusát!</small>
+        </div>
+
+        <div class="col-12">
+          <label class="form-label">Jelenleg él másik kutya a háztartásban?</label>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" formControlName="otherDog" value="Igen" id="otherDogYes" >
+            <label class="form-check-label" for="otherDogYes">Igen</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" formControlName="otherDog" value="Nem" id="otherDogNo">
+            <label class="form-check-label" for="otherDogNo">Nem</label>
+          </div>
+          <small *ngIf="adoptionForm.get('otherDog')?.invalid && adoptionForm.get('otherDog')?.touched" class="text-danger">
+            Jelezd, hogy él-e kutya a háztartásban!
+          </small>
+        </div>
+
+        <div class="col-12">
+          <label class="form-label">Jelenleg él más háziállat a háztartásban?</label>
+          <div class="form-check">
+            <input class="form-check-input" (change)="toggleHasOtherPet($event)" type="radio" formControlName="otherPet" value="Igen" id="otherPetYes" >
+            <label class="form-check-label" for="otherPetYes">Igen</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" (change)="toggleHasOtherPet($event)" type="radio" formControlName="otherPet" value="Nem" id="otherPetNo">
+            <label class="form-check-label" for="otherPetNo">Nem</label>
+          </div>
+          <small *ngIf="adoptionForm.get('otherPet')?.invalid && adoptionForm.get('otherPet')?.touched" class="text-danger">
+            Jelezd, hogy él-e más háziállat a háztartásban!
+          </small>
+        </div>
+
+
+<!--Ha előző checkboxot bepipálta, feljön ez:-->
+        <div *ngIf="hasOtherPet">
+          <label for="inputOtherPetDetails" class="form-label">Jelenlegi háziállat fajtája:</label>
+          <select formControlName="otherPetDetails" id="inputOtherPetDetails" class="form-select">
+            <option hidden disabled value="">Válaszd ki a kategóriát</option>
+            <option value="Macska">Macska</option>
+            <option value="Rágcsáló">Rágcsáló</option>
+            <option value="Madár">Madár</option>
+            <option value="Egyéb">Egyéb</option>
+          </select>
+          <small *ngIf="adoptionForm.get('otherPetDetails')?.invalid && adoptionForm.get('otherPetDetails')?.touched" class="text-danger">
+            Ha él háziállat a háztartásban, jelöld meg a kategóriáját!
+          </small>
+        </div>
+
+        <div>
+          <label for="inputNrOfHoursAlone" class="form-label"> Egy átlagos napon hány órát lenne egyedül a kutya? </label>
+          <input formControlName="nrOfHoursAlone" type="number" class="form-control" id="inputNrOfHoursAlone" />
+          <small *ngIf="adoptionForm.get('nrOfHoursAlone')?.invalid && adoptionForm.get('nrOfHoursAlone')?.touched" class="text-danger">0 és 24 közötti számot adj meg!</small>
+        </div>
+
+        <div>
+          <label for="inputNrOfDailyWalks" class="form-label"> Egy átlagos napon hányszor tudnád sétáltatni a kutyát? </label>
+          <input formControlName="nrOfDailyWalks" type="number" class="form-control" id="inputNrOfDailyWalks" />
+          <small *ngIf="adoptionForm.get('nrOfDailyWalks')?.invalid && adoptionForm.get('nrOfDailyWalks')?.touched" class="text-danger">1 és 5 közötti számot adj meg!</small>
+        </div>
+
+
+        <div class="col-12">
+          <label class="form-check-label">Mekkora kutyát keresel? (Több válasz is bejelölhető)</label>
+          <div class="form-check">
+            <input formControlName="wantedSizeSmall" class="form-check-input" type="checkbox" id="Kicsi"/>
+            <label class="form-check-label" for="Kicsi">Kicsi</label>
+          </div>
+          <div class="form-check">
+            <input formControlName="wantedSizeMedium" class="form-check-input" type="checkbox" id="Közepes"/>
+            <label class="form-check-label" for="Közepes">Közepes</label>
+          </div>
+          <div class="form-check">
+            <input formControlName="wantedSizeBig" class="form-check-input" type="checkbox" id="Nagy"/>
+            <label class="form-check-label" for="Nagy">Nagy</label>
+          </div>
+<!--          <small *ngIf="adoptionForm.get('wantedSize')?.invalid && adoptionForm.get('wantedSize')?.touched" class="text-danger">Érvénytelen válasz</small>-->
+        </div>
+
+        <div class="col-12">
+          <label class="form-check-label">Milyen korú kutyát keresel? (Több válasz is bejelölhető)</label>
+          <div class="form-check">
+            <input formControlName="wantedAgePuppy" class="form-check-input" type="checkbox" id="Kölyök"/>
+            <label class="form-check-label" for="Kölyök">Kölyök (1 év alatt)</label>
+          </div>
+          <div class="form-check">
+            <input formControlName="wantedAgeYoung" class="form-check-input" type="checkbox" id="Fiatal"/>
+            <label class="form-check-label" for="Fiatal">Fiatal (1-3 év között)</label>
+          </div>
+          <div class="form-check">
+            <input formControlName="wantedAgeAdult" class="form-check-input" type="checkbox" id="Felnőtt"/>
+            <label class="form-check-label" for="Felnőtt">Felnőtt (4-10 év között)</label>
+          </div>
+          <div class="form-check">
+            <input formControlName="wantedAgeOld" class="form-check-input" type="checkbox" id="Idős"/>
+            <label class="form-check-label" for="Idős">Idős (10 év felett)</label>
+          </div>
+<!--          <small *ngIf="adoptionForm.get('wantedAge')?.invalid && adoptionForm.get('wantedAge')?.touched" class="text-danger">Érvénytelen válasz</small>-->
+        </div>
+
+        <div>
+          <label for="inputIntroduction" class="form-label"> Bemutatkozás </label>
+          <textarea formControlName="introduction" class="form-control" id="inputIntroduction" rows="3"></textarea>
+          <small *ngIf="adoptionForm.get('introduction')?.invalid && adoptionForm.get('introduction')?.touched" class="text-danger">Írj egy rövid bemutatkozást magadról! (Max. 1000 karakter)</small>
+        </div>
+
+
+
+        <div class="col-12">
+          <button *ngIf="btnText" [disabled]="adoptionForm.invalid" class="btn btn-primary">{{btnText}}</button>
+<!--          <button *ngIf="btnText" class="btn btn-primary">{{btnText}}</button>-->
+        </div>
+
+
+      </form>
+
+    </div>
+
+
+  </div>
+
+<!--  toDo: select disabled nem szürke-->
+
+
+

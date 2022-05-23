@@ -1,0 +1,26 @@
+<div class="container">
+  <table class="table table-hover">
+    <thead>
+    <tr>
+      <th scope="col">Név</th>
+      <th scope="col">Ivar</th>
+      <th scope="col">Méret</th>
+      <th scope="col">Születési dátum</th>
+      <th scope="col">Műveletek <button class="btn btn-info" routerLink="/admin/dogs/new-dog/form">Új kutya</button></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let dog of dogs">
+      <td>{{dog.name}}</td>
+      <td>{{dog.gender}}</td>
+      <td>{{dog.size}}</td>
+      <td>{{dog.dateOfBirth}}</td>
+      <td>
+        <button class="btn btn-success" [routerLink]="'/admin/dogs/' + dog.id">Részletek</button>
+        <button class="btn btn-danger" (click)="deleteDog(dog)">Delete</button>
+      </td>
+    </tr>
+
+    </tbody>
+  </table>
+</div>
