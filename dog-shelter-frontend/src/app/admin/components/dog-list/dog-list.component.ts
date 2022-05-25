@@ -13,6 +13,7 @@ import {FormControl} from "@angular/forms";
 export class DogListComponent implements OnInit {
 
   public dogs: DogModel[] = [];
+  public dogToDelete?: DogModel
   public sizeInput: FormControl = new FormControl("");
   public nameInput: FormControl = new FormControl("");
   public genderInput: FormControl = new FormControl("");
@@ -31,7 +32,7 @@ export class DogListComponent implements OnInit {
     //szűrők alaphelyzetbe
     this.sizeInput.setValue("");
     this.genderInput.setValue("");
-  }
+  }   //onInit vége
 
   public getDogsByFilter(): void {
     let queryObj:any = {};
@@ -50,10 +51,16 @@ export class DogListComponent implements OnInit {
       next: dogs => this.dogs = dogs,
       error: (e) => console.log(e)
     })
+  }    //szűrő vége
+
+  public setDogToDelete(dog: DogModel) {
+    if (dog) {
+      this.dogToDelete = dog;
+    }
   }
 
-  public deleteDog (dog: DogModel) {
-    if (dog.id) {
+  public deleteDog (dog: DogModel | undefined) {
+    if (dog?.id) {
       this.dogService.deleteDog(dog.id).subscribe({
         next: () => {
           this.dogService.getDogs().subscribe({

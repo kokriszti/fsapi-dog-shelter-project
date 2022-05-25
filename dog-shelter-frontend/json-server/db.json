@@ -356,23 +356,6 @@
       ]
     },
     {
-      "id": 18,
-      "status": "adoptable",
-      "name": "Karalee",
-      "gender": "szuka",
-      "size": "nagy",
-      "dateOfBirth": "2018-11-16",
-      "description": "Etiam vel augue. Vestibulum rutrum rutrum neque. Aenean auctor gravida sem.",
-      "imgSrc": "/assets/dog-pics/18.jpg",
-      "isVaccinated": true,
-      "isSterilized": true,
-      "kennelNr": 29,
-      "activity": "nyugodt",
-      "toChild": true,
-      "toFlat": true,
-      "appointments": []
-    },
-    {
       "id": 19,
       "status": "adoptable",
       "name": "Valerye",
@@ -495,16 +478,6 @@
     {
       "dogId": 3,
       "dogName": "Phil",
-      "userId": 2,
-      "userName": "Vezetéknév Keresztnév",
-      "date": "2022-05-28",
-      "time": "12:00",
-      "comment": "sagasfg",
-      "id": 9
-    },
-    {
-      "dogId": 3,
-      "dogName": "Phil",
       "userId": 1,
       "date": "2022-06-19",
       "time": "8:00",
@@ -620,6 +593,26 @@
       "time": "10:00",
       "comment": "ihrpitghrieuhguhuh",
       "id": 21
+    },
+    {
+      "dogId": 2,
+      "dogName": "Devin",
+      "userId": 2,
+      "userName": "Vezetéknév Keresztnév",
+      "date": "2022-05-27",
+      "time": "14:00",
+      "comment": "bla",
+      "id": 22
+    },
+    {
+      "dogId": 2,
+      "dogName": "Devin",
+      "userId": 2,
+      "userName": "Vezetéknév Keresztnév",
+      "date": "2022-07-01",
+      "time": "8:00",
+      "comment": "reset teszt",
+      "id": 23
     }
   ],
   "users": [

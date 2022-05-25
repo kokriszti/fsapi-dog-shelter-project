@@ -8,6 +8,7 @@ import { UserService } from "../../../services/user.service"
 import { AppointmentService } from "../../../services/appointment.service"
 import {DogModel} from "../../../models/dog.model";
 import {AppointmentModel} from "../../../models/appointment.model";
+import {DateService} from "../../../services/date.service";
 
 @Component({
   selector: 'app-user-profile',
@@ -39,6 +40,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   constructor(private userService: UserService,
               private appointmentService: AppointmentService,
               private activatedRoute: ActivatedRoute,
+              private dateService: DateService,
               private router: Router) { }
 
   ngOnInit(): void {
@@ -55,10 +57,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
       error: (e) => {console.log(e)}
     })
 
-    let todayDate: Date = new Date();
-    let month: string = todayDate.getMonth() < 9 ? `0${todayDate.getMonth() + 1}` : `${todayDate.getMonth() + 1}`
-
-    let today: string = `${todayDate.getFullYear()}-${month}-${todayDate.getDate()}`
+    const today = this.dateService.dateToString(0)
 
     this.appointmentService.getAppointments({date_gte: today, userId: this.idReadFromRoute}).subscribe({
       next: (appointmentsFromServer: AppointmentModel[]) => {
@@ -67,7 +66,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
       },
       error: (e) => console.log(e)
     });
-  }
+  }   //onInit vége
 
   public toggleEditMode(): void {
     this.editMode = true;
@@ -127,19 +126,20 @@ export class UserProfileComponent implements OnInit, OnDestroy {
         },
         error: (e) => {console.log(e);
         },
-      })
-
-
-
-
+      })    //subscribe vége
     }
-
-
-
-
-
-
   }   //saveUser vége
+
+  public deleteAppointment(id: number | undefined){
+    if(id) {
+    this.appointmentService.deleteAppointments(id).subscribe({
+      next: () => {
+        this.userAppointment = undefined
+      },
+      error: (e) => {console.log(e)}
+    })
+    }
+  }
 
   ngOnDestroy(): void {
     this.subscription?.unsubscribe();

@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { DogModel } from 'src/app/models/dog.model';
@@ -22,6 +22,7 @@ export class AppointmentComponent implements OnInit, OnDestroy {
   public reservedAppointments: AppointmentModel[] = []
   public minDate: string = ""
   public maxDate: string = ""
+  public appointmentTaken: boolean = false
 
   public appointmentForm: FormGroup = new FormGroup({
     date: new FormControl("", [Validators.required, this.dateValidator]),
@@ -67,7 +68,9 @@ export class AppointmentComponent implements OnInit, OnDestroy {
     return dateInput.value >= nextDay && dateInput.value <= `${dateNextDay.getFullYear()}-12-31`? null : {dateError: "Valós, jövőbeli dátumot adj meg!"}
   }
 
-
+  public setAppointmentTaken() {
+    this.appointmentTaken = false
+  }
 
 
   public onSubmit(): void {
@@ -95,7 +98,7 @@ export class AppointmentComponent implements OnInit, OnDestroy {
               const newAppointment: AppointmentModel = {
                 dogId: this.selectedDog.id,
                 dogName: this.selectedDog.name,
-                userId: 3,
+                userId: 2,
                 userName: "Vezetéknév Keresztnév",
                 date: this.appointmentForm.get("date")?.value,
                 time: this.appointmentForm.get("time")?.value,
@@ -103,7 +106,10 @@ export class AppointmentComponent implements OnInit, OnDestroy {
               }
 
               this.appointmentService.saveAppointment(newAppointment).subscribe({
-                next: (appointment) => console.log(appointment),
+                next: (appointment) => {
+                  console.log(appointment)
+                  this.appointmentForm.reset()
+                },
                 error: (e) => {
                   console.log(e)
                 }
@@ -112,7 +118,9 @@ export class AppointmentComponent implements OnInit, OnDestroy {
             }   //nullcheck vége
 
           } else {
-            console.log("Ez az iőpont már foglalt, kérjük válasszon másikat")
+
+            this.appointmentTaken = true;
+            console.log("Ez az időpont már foglalt, kérjük válassz másikat!")
           }//külső if vége
         },
         error: (e) => console.log(e)

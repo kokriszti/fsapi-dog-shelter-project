@@ -17,10 +17,30 @@
       <td>{{dog.dateOfBirth}}</td>
       <td>
         <button class="btn btn-success" [routerLink]="'/admin/dogs/' + dog.id">Részletek</button>
-        <button class="btn btn-danger" (click)="deleteDog(dog)">Delete</button>
+        <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop" (click)="setDogToDelete(dog)">Delete</button>
       </td>
     </tr>
 
     </tbody>
   </table>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="backdropLabel">Törlés megerősítése</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Biztosan törlöd a a bejegyzést?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Mégsem</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="deleteDog(dogToDelete)">Törlés</button>
+      </div>
+    </div>
+  </div>
+</div>
+

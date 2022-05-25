@@ -16,7 +16,7 @@
                 Válassz dátumot:
               </span>
             </p>
-            <input type="date" [min]="minDate" [max]="maxDate" formControlName="date">
+            <input type="date" [min]="minDate" [max]="maxDate" formControlName="date" (change)="setAppointmentTaken()">
             <small *ngIf="appointmentForm.get('date')?.invalid && appointmentForm.get('date')?.touched" class="text-danger">
                   <small *ngIf="appointmentForm.get('date')?.errors?.['required']">
                               Kérjük, válassz dátumot!
@@ -32,7 +32,7 @@
               </span>
             </p>
             <div>
-              <select formControlName="time" id="inputTime" class="form-select">
+              <select formControlName="time" id="inputTime" class="form-select" (change)="setAppointmentTaken()">
                 <option value="8:00">8:00</option>
                 <option value="10:00">10:00</option>
                 <option value="12:00">12:00</option>
@@ -45,8 +45,9 @@
               <label for="inputComment" class="form-label">Megjegyzés</label>
               <textarea formControlName="comment" class="form-control" id="inputComment" rows="3"></textarea>
               <small *ngIf="appointmentForm.get('comment')?.invalid && appointmentForm.get('comment')?.touched" class="text-danger">Maximum 500 karakter</small>
+              <small *ngIf="appointmentTaken" class="text-danger">Ez az időpont már foglalt, kérjük válassz másikat!</small>
             </div>
-<!--            todo: disabled gomb színét állítani-->
+
             <button class="hm-btn text-white mb-2" [disabled]=appointmentForm.invalid type="submit"><i class="fa-solid fa-paw"></i> Lefoglalom</button>
           </form>
 
@@ -57,3 +58,5 @@
     </div>
   </div>
 </div>
+
+
