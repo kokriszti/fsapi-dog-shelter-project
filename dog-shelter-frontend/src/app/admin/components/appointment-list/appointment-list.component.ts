@@ -24,10 +24,11 @@ export class AppointmentListComponent implements OnInit {
   constructor(private appointmentService: AppointmentService, private router: Router) { }
 
   ngOnInit(): void {
-    let todayDate: Date = new Date();
-    let month: string = todayDate.getMonth() < 9 ? `0${todayDate.getMonth() + 1}` : `${todayDate.getMonth() + 1}`
+    const todayDate: Date = new Date();
+    const month: string = todayDate.getMonth() < 9 ? `0${todayDate.getMonth() + 1}` : `${todayDate.getMonth() + 1}`
+    const day: string = todayDate.getDate() < 10 ? `0${todayDate.getDate()}` : `${todayDate.getDate()}`
 
-    let today: string = `${todayDate.getFullYear()}-${month}-${todayDate.getDate()}`
+    const today: string = `${todayDate.getFullYear()}-${month}-${day}`
 
     //alap állapot csak jövőbeli, dátum szerint rendezve:
     this.appointmentService.getAppointments({date_gte: today, _sort: "date"}).subscribe({
