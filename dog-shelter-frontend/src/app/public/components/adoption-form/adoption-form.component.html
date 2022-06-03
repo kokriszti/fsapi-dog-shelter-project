@@ -12,7 +12,7 @@
         <div>
           <label for="inputfirstName" class="form-label"> Keresztnév </label>
           <input formControlName="firstName" type="text" class="form-control" id="inputfirstName" />
-          <small *ngIf="adoptionForm.get('lastName')?.invalid && adoptionForm.get('lastName')?.touched" class="text-danger">Érvénytelen válasz!</small>
+          <small *ngIf="adoptionForm.get('firstName')?.invalid && adoptionForm.get('firstName')?.touched" class="text-danger">Érvénytelen válasz!</small>
         </div>
 
         <div>
