@@ -20,11 +20,11 @@ exports.create = userData => {
 
 //UPDATE PUT:
 exports.update = (id, updateData) => {
-    return User.findByIdAndUpdate(id, updateData, {new: true, overwrite: true})       //toDo: overwrite:true felülírja az objektumot, kipróbálni
+    return User.findByIdAndUpdate(id, updateData, {new: true, overwrite: true, runValidators: true})       //toDo: overwrite:true felülírja az objektumot, kipróbálni
 }
 
 //UPDATE PATCH:
 exports.patch = (id, updateData) => {
-    return User.findByIdAndUpdate(id, updateData, {new: true})
+    return User.findByIdAndUpdate(id, updateData, {new: true, runValidators: true})
 }
 

@@ -4,7 +4,8 @@ const idValidator = require("mongoose-id-validator")
 const UserSchema = new mongoose.Schema({
     username: {
         type: String,
-        required: true
+        required: true,
+        minLength: 5
     },
     password: {
         type: String,
