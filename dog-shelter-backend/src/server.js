@@ -8,6 +8,12 @@ const appointmentRoutes = require("./controllers/appointment/appointment.routes"
 
 const app = express();
 
+//auth
+const authenticationByJWT = require("./auth/authenticate")
+const login = require("./auth/login")             //refresh nélküli működés, authHandler kiváltotta
+const adminRoleHandler = require ("./auth/adminOnly")
+const authHandler = require("./auth/authHandler")
+
 app.use(morgan("combined", {
     stream: {
         write: (message) => logger.info(message)        //winston loggernek átadja
@@ -17,9 +23,15 @@ app.use(morgan("combined", {
 //express 4.16 felett:
 app.use(express.json());
 
-app.use("/dog", dogRoutes)
+//auth végpont:
+// app.post("/login", login)            //refresh nélküli működés
+app.post("/login", authHandler.login)
+app.post("/refresh", authHandler.refresh)
+app.post("/logout", authHandler.logout)
+
+app.use("/dog", authenticationByJWT, adminRoleHandler, dogRoutes)
 app.use("/user", userRoutes)
-app.use("/appointment", appointmentRoutes)
+app.use("/appointment", authenticationByJWT, appointmentRoutes)
 
 app.use("/", (req, res, next) => {
     return next(new createError.BadRequest("Endpoint does not exist"))

@@ -1,4 +1,5 @@
 const config = require("config")
+require("dotenv").config()
 const mongoose = require("mongoose")
 
 const logger = require("./config/logger")
@@ -11,6 +12,9 @@ if(!config.has("database")){
     logger.error("No database config found");
     process.exit()
 }
+
+//simán beégetve:
+//mongoose.connect("mongodb+srv://demo:demo@democluster.g1k5w.mongodb.net/testdb?retryWrites=true&w=majority")
 mongoose.connect(`mongodb+srv://${config.database.user}:${config.database.password}@${config.database.host}`)
     .then(() => logger.info("MongoDB connection has been established successfully"))
     .catch((err) => {
