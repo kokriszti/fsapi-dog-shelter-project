@@ -20,12 +20,12 @@ exports.create = dogData => {
 
 //UPDATE PUT:
 exports.update = (id, updateData) => {
-    return Dog.findByIdAndUpdate(id, updateData, {new: true, overwrite: true})       //toDo: overwrite:true felülírja az objektumot, kipróbálni
+    return Dog.findByIdAndUpdate(id, updateData, {new: true, overwrite: true, runValidators: true})       //toDo: overwrite:true felülírja az objektumot, kipróbálni
 }
 
 //UPDATE PATCH:
 exports.patch = (id, updateData) => {
-    return Dog.findByIdAndUpdate(id, updateData, {new: true})
+    return Dog.findByIdAndUpdate(id, updateData, {new: true, runValidators: true})
 }
 
 //DELETE

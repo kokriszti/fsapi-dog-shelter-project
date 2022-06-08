@@ -50,16 +50,43 @@ const DogSchema = new mongoose.Schema({
         ref: "Appointment"
     }],
     owner: {
-        ownerLastName: String,
-        ownerFirstName: String,
-        ownerEmail: String,
-        ownerPhone: String,
-        ownerAddress: {
-            zip: Number,
-            city: String,
-            streetAndNr: String
+        type: {
+            ownerLastName: {
+                type: String,
+                required: true
+            },
+            ownerFirstName: {
+                type: String,
+                required: true
+            },
+            ownerEmail: {
+                type: String,
+                required: true
+            },
+            ownerPhone: {
+                type: String,
+                required: true
+            },
+            ownerAddress: {
+                zip: {
+                    type: Number,
+                    required: true
+                },
+                city: {
+                    type: String,
+                    required: true
+                },
+                streetAndNr: {
+                    type: String,
+                    required: true
+                }
+            },
+            dateOfAdoption: {
+                type: String,
+                required: true
+            }
         },
-        dateOfAdoption: String
+        required: false
     }
 }, {
     timestamps: true
