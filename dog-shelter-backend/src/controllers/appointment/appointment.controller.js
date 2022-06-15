@@ -6,8 +6,26 @@ const appointmentService = require("./appointment.service")
 
 //READ
 exports.findAll = async (req, res, next) => {
+    const queryString = req.query
+    let filter = {};
+    if (queryString.date_gte) {
+        filter.date = {$gte: queryString.date_gte}
+    }
+    if (queryString.date) {
+        filter.date = queryString.date
+    }
+    if (queryString.time) {
+        filter.time = queryString.time
+    }
+    if (queryString.user) {                //toDo: id-t átgondolni
+        filter.user = queryString.user
+    }
+
+    let sorted = false
+    if(queryString._sort) sorted = true
+
     try{
-        const appointments = await appointmentService.findAll()
+        const appointments = await appointmentService.findAll(filter, sorted)
         logger.debug(`Get all documents, returning ${appointments.length} items`)
         res.json(appointments)
     } catch (err) {

@@ -3,6 +3,7 @@
     <thead>
     <tr>
       <th scope="col">Név</th>
+      <th scope="col">Státusz</th>
       <th scope="col">Ivar</th>
       <th scope="col">Méret</th>
       <th scope="col">Születési dátum</th>
@@ -12,11 +13,12 @@
     <tbody>
     <tr *ngFor="let dog of dogs">
       <td>{{dog.name}}</td>
+      <td>{{dog.status === "adoptable"? "gazdikereső" : "örökbeadva"}}</td>
       <td>{{dog.gender}}</td>
       <td>{{dog.size}}</td>
       <td>{{dog.dateOfBirth}}</td>
       <td>
-        <button class="btn btn-success" [routerLink]="'/admin/dogs/' + dog.id">Részletek</button>
+        <button class="btn btn-success" [routerLink]="'/admin/dogs/' + dog._id">Részletek</button>
         <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop" (click)="setDogToDelete(dog)">Delete</button>
       </td>
     </tr>

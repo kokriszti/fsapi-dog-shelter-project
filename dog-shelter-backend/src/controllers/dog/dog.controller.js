@@ -6,8 +6,24 @@ const dogService = require("./dog.service")
 
 //READ
 exports.findAll = async (req, res, next) => {
+    const queryString = req.query
+    let filter = {};
+    if (queryString.name_like) {                 // URLSearchParams.has
+        filter.name = {$regex: new RegExp(queryString.name_like, "i")}         // URLSearchParams.get
+    }
+    if (queryString.status) {
+        filter.status = queryString.status
+    }
+    if (queryString.size) {
+        filter.size = queryString.size
+    }
+    if (queryString.gender) {
+        filter.gender = queryString.gender
+    }
+
+
     try{
-        const dogs = await dogService.findAll()
+        const dogs = await dogService.findAll(filter)
         logger.debug(`Get all documents, returning ${dogs.length} items`)
         res.json(dogs)
     } catch (err) {

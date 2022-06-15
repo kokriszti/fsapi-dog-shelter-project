@@ -16,6 +16,8 @@ import { AppointmentComponent } from './components/appointment/appointment.compo
 import { RegisterComponent } from './components/register/register.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { AdoptionDataComponent } from './components/adoption-data/adoption-data.component';
+import {HTTP_INTERCEPTORS} from "@angular/common/http";
+import {JwtInterceptor} from "../services/jwt.interceptor";
 
 
 @NgModule({

@@ -20,13 +20,19 @@
           <a class="nav-link text-uppercase" routerLink="dogs" routerLinkActive="active">Gazdikeresőink</a>
         </li>
 
-        <li class="nav-item">
+        <li *ngIf="userObject && userObject.isAdmin" class="nav-item">
           <a class="nav-link text-uppercase" routerLink="admin">Admin</a>
+        </li>
+        <li *ngIf="userObject && !userObject.isAdmin" class="nav-item">
+          <a class="nav-link text-uppercase" [routerLink]="'/user/' + userObject._id">Adataim</a>
         </li>
       </ul>
       <ul class="navbar-nav mb-2 mb-lg-0">
-        <li class="nav-item">
+        <li *ngIf="!userObject"class="nav-item">
           <a class="nav-link text-uppercase" routerLink="login" routerLinkActive="active">Belépés</a>
+        </li>
+        <li *ngIf="userObject" class="nav-item">
+          <a class="nav-link text-uppercase" (click)="logout()" routerLinkActive="active">Kilépés</a>
         </li>
       </ul>
     </div>

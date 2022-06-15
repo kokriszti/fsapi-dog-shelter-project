@@ -2,44 +2,28 @@ const jwt = require("jsonwebtoken")
 const User = require("../models/user.model")
 const RefreshToken = require("../models/refreshToken.model")
 
-//való életben itt model behúzás, ehelyett:
-// const Users = [
-//     {
-//         username: 'admin',
-//         password: 'admin_pw',
-//         role: 'admin'
-//     },
-//     {
-//         username: 'user',
-//         password: 'user_pw',
-//         role: 'user'
-//     }
-// ];
-
-//való életben külön model rá, db-ben tárolás ehelyett:
-//const refreshTokenList = []
 
 //login működés:
 module.exports.login = (req, res) => {    //nem kell next, mert bejelentkezéskor nem kell több middleware, amire továbbugranánk
     const {username, password} = req.body;      //object destructuring
 
     //password encode
-    //bekérdezés db-be való életben:
-    //const user = Users.find(u => u.username === username && u.password === password);
 
     const user = User.findOne({username: username, password: password})
         .then(user => {
             if (user) {
                 const accessToken = jwt.sign({
                     username: user.username,
-                    isAdmin: user.isAdmin
+                    isAdmin: user.isAdmin,
+                    _id: user._id
                 }, process.env.ACCESS_TOKEN_SECRET_KEY, {
                     expiresIn: process.env.TOKEN_EXPIRY
                 });
 
                 const refreshToken = jwt.sign({
                     username: user.username,
-                    isAdmin: user.isAdmin
+                    isAdmin: user.isAdmin,
+                    _id: user._id
                 }, process.env.REFRESH_TOKEN_SECRET_KEY)
                 //való életben db-be mentés ehelyett:
                 //refreshTokenList.push(refreshToken)
@@ -53,7 +37,12 @@ module.exports.login = (req, res) => {    //nem kell next, mert bejelentkezésko
                 myRefreshToken.save()
                     .then(() => {
                         console.log("refreshtoken saved")
-                        res.json({accessToken, refreshToken});
+                        res.json({
+                            accessToken,
+                            refreshToken,
+                            username: user.username,
+                            isAdmin: user.isAdmin,
+                            _id: user._id});
                     })
                     .catch(err => {
                         console.log(err)
@@ -77,10 +66,6 @@ module.exports.refresh = (req, res) => {
     if(!refreshToken) {
         res.sendStatus(401);
     }
-    //bekérdezés db-be való életben:
-    // if(!refreshTokenList.includes(refreshToken)) {
-    //     res.sendStatus(403);
-    // }
 
     RefreshToken.findOne({token: refreshToken})
         .then(refreshToken => {
@@ -93,14 +78,23 @@ module.exports.refresh = (req, res) => {
                     res.sendStatus(403);
                 }
 
-                const accesToken = jwt.sign({
+                const accessToken = jwt.sign({
                     username: user.username,
-                    isAdmin: user.isAdmin
+                    isAdmin: user.isAdmin,
+                    _id: user._id
                 }, process.env.ACCESS_TOKEN_SECRET_KEY, {
                     expiresIn: process.env.TOKEN_EXPIRY
                 });
 
-                res.json({accesToken})
+                res.json({
+                    accessToken,
+                    userData: {
+                        username: user.username,
+                        isAdmin: user.isAdmin,
+                        _id: user._id
+                    }
+                })
+                //return;
             })
         })
 
@@ -110,14 +104,6 @@ module.exports.refresh = (req, res) => {
 //logout működés
 module.exports.logout = (req, res) => {
     const {refreshToken} = req.body;
-
-    // if(!refreshTokenList.includes(refreshToken)) {
-    //     res.sendStatus(403);
-    // }
-    // //db checkre cserélni
-    // if(!refreshToken || !refreshTokenList.includes(refreshToken)) {
-    //     res.sendStatus(403);    //vagy 401
-    // }
 
     RefreshToken.findOne({token: refreshToken})
         .then(refreshToken => {
@@ -129,7 +115,4 @@ module.exports.logout = (req, res) => {
 
         })
 
-    // const tokenIndex = refreshTokenList.indexOf(refreshToken);
-    // refreshTokenList.splice(tokenIndex, 1);
-    // res.sendStatus(200)
 }

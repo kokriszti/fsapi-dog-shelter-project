@@ -7,6 +7,7 @@ import {DogService} from 'src/app/services/dog.service';
 import {FormControl} from "@angular/forms";
 import {AppointmentModel} from "../../../models/appointment.model";
 import {UserModel} from "../../../models/user.model";
+import {AppointmentPopulatedModel} from "../../../models/appointment-populated.model";
 
 @Component({
   selector: 'app-appointment-list',
@@ -15,7 +16,7 @@ import {UserModel} from "../../../models/user.model";
 })
 export class AppointmentListComponent implements OnInit {
 
-  public appointments: AppointmentModel[] = [];
+  public appointments: AppointmentPopulatedModel[] = [];
   public sizeInput: FormControl = new FormControl("");
   public nameInput: FormControl = new FormControl("");
   public genderInput: FormControl = new FormControl("");
@@ -32,14 +33,14 @@ export class AppointmentListComponent implements OnInit {
 
     //alap állapot csak jövőbeli, dátum szerint rendezve:
     this.appointmentService.getAppointments({date_gte: today, _sort: "date"}).subscribe({
-      next: (appointmentsFromServer: AppointmentModel[]) => {
+      next: (appointmentsFromServer: AppointmentPopulatedModel[]) => {
         this.appointments = appointmentsFromServer;
         console.log(this.appointments);
       },
       error: (e) => console.log(e)
     });
 
-    //szűrők alaphelyzetbe
+    //toDo: megnézni, kieszedni: szűrők alaphelyzetbe
     this.sizeInput.setValue("");
     this.genderInput.setValue("");
 

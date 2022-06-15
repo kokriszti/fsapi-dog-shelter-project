@@ -13,8 +13,8 @@
     <tr *ngFor="let appointment of appointments">
       <td>{{appointment.date}}</td>
       <td>{{appointment.time}}</td>
-      <td><a routerLink="/admin/dogs/{{appointment.dogId}}">{{appointment.dogName}}</a></td>
-      <td>{{appointment.userName}} <i title="Információ a gazdijelöltről" class="fa-solid fa-circle-info" routerLink="user-data/{{appointment.userId}}"></i></td>
+      <td><a routerLink="/admin/dogs/{{appointment.dog._id}}">{{appointment.dog.name}}</a></td>
+      <td>{{appointment.user.adoptionForm.lastName}} {{appointment.user.adoptionForm.firstName}} <i title="Információ a gazdijelöltről" class="fa-solid fa-circle-info" routerLink="user-data/{{appointment.user._id}}"></i></td>
       <td>{{appointment.comment}}</td>
     </tr>
 

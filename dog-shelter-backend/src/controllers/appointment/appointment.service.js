@@ -2,10 +2,17 @@ const Appointment = require("../../models/appointment.model")
 
 
 //READ:
-exports.findAll = () => {
-    return Appointment.find()
-        .populate("dog", {name: 1, _id: 0})
-        .populate("user", {"adoptionForm.firstName": 1, "adoptionForm.lastName": 1, _id: 0})
+exports.findAll = (filter, sorted) => {
+    if(sorted) {
+        return Appointment.find(filter)
+            .sort({date: 1})
+            .populate("dog", {name: 1})
+            .populate("user", {"adoptionForm.firstName": 1, "adoptionForm.lastName": 1})
+    } else {
+        return Appointment.find(filter)
+            .populate("dog", {name: 1})
+            .populate("user", {"adoptionForm.firstName": 1, "adoptionForm.lastName": 1})
+    }
 }
 
 //READ BY ID:

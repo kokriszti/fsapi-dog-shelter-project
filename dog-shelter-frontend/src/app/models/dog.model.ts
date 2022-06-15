@@ -1,7 +1,7 @@
 import {OwnerModel} from "./owner.model";
 
 export interface DogModel {
-  id?: number,
+  _id?: string,
   status: string,
   name: string,
   gender: string,

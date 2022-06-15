@@ -7,7 +7,7 @@ import { UserModel } from '../models/user.model';
   providedIn: 'root'
 })
 export class UserService {
-  private readonly USER_URL: string = "http://localhost:3000/users";
+  private readonly USER_URL: string = "http://localhost:3000/user";
 
   constructor(private http: HttpClient) { }
 
@@ -31,12 +31,12 @@ export class UserService {
   }
 
   public updateUser(user: UserModel): Observable<UserModel> {
-    return this.http.put<UserModel>(`${this.USER_URL}/${user.id}`, user)
+    return this.http.put<UserModel>(`${this.USER_URL}/${user._id}`, user)
     // A frissített objektumot adja vissza
   }
 
   public patchUser(user: UserModel, body: any) {
-    return this.http.patch(`${this.USER_URL}/${user.id}`, body)
+    return this.http.patch(`${this.USER_URL}/${user._id}`, body)
   }
 
   public deleteUser(id: number): Observable<Object> {

@@ -6,6 +6,7 @@ import { DogService } from 'src/app/services/dog.service';
 import { AbstractControl, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { AppointmentService } from 'src/app/services/appointment.service';
 import {AppointmentModel} from "../../../models/appointment.model";
+import {AppointmentPopulatedModel} from "../../../models/appointment-populated.model";
 import {DateService} from "../../../services/date.service";
 
 
@@ -19,7 +20,7 @@ export class AppointmentComponent implements OnInit, OnDestroy {
   public idReadFromRoute?: any;
   public subscription?: Subscription;
   public selectedDog?: DogModel;
-  public reservedAppointments: AppointmentModel[] = []
+  public reservedAppointments: AppointmentPopulatedModel[] = []
   public minDate: string = ""
   public maxDate: string = ""
   public appointmentTaken: boolean = false
@@ -92,14 +93,13 @@ export class AppointmentComponent implements OnInit, OnDestroy {
           if (this.reservedAppointments.length <= 0) {
 
             //nullcheck:
-            if (this.selectedDog && this.selectedDog.id ) {
+            if (this.selectedDog && this.selectedDog._id ) {
 
               //userID és név egyelőre beégetett, autentikáció után cserélni
               const newAppointment: AppointmentModel = {
-                dogId: this.selectedDog.id,
-                dogName: this.selectedDog.name,
-                userId: 2,
-                userName: "Vezetéknév Keresztnév",
+                dog: this.selectedDog._id,
+                //toDo: usert dinamikussá:
+                user: "6293b58bdc9f697f23468c8d",
                 date: this.appointmentForm.get("date")?.value,
                 time: this.appointmentForm.get("time")?.value,
                 comment: this.appointmentForm.get("comment")?.value

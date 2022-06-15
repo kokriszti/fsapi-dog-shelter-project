@@ -9,6 +9,7 @@ import {LoginComponent} from "./components/login/login.component";
 import {AppointmentComponent} from "./components/appointment/appointment.component";
 import {RegisterComponent} from "./components/register/register.component";
 import {UserProfileComponent} from "./components/user-profile/user-profile.component";
+import {AuthGuardService} from "../services/auth-guard.service";
 
 const routes: Routes = [
   { path: "login", component: LoginComponent },
@@ -18,7 +19,7 @@ const routes: Routes = [
       { path: "", component: LandingComponent },
       { path: "dogs", component: DogsComponent },
       { path: "dogs/:id", component: DogDetailsComponent },
-      { path: "appointment/:dogId", component: AppointmentComponent },
+      { path: "appointment/:dogId", component: AppointmentComponent, canActivate: [AuthGuardService] },
       { path: "user/:userId", component: UserProfileComponent },
       { path: "**", component: PageNotFoundComponent }
     ]

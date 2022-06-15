@@ -8,17 +8,20 @@
   <div class="row d-flex justify-content-center py-5">
     <div class="col-md-4 bg-white rounded">
 
-      <div class="my-3">
-        <label for="loginName" class="form-label">Felhasználónév</label>
-        <input type="text" class="form-control" id="loginName" aria-describedby="emailHelp">
-      </div>
+      <form [formGroup]="loginForm" (ngSubmit)="signIn()">
+        <div class="my-3">
+          <label for="loginName" class="form-label">Felhasználónév</label>
+          <input formControlName="username" type="text" class="form-control" id="loginName" aria-describedby="emailHelp">
+        </div>
 
-      <div class="my-3">
-        <label for="loginPassword" class="form-label">Jelszó</label>
-        <input type="password" class="form-control" id="loginPassword">
-      </div>
+        <div class="my-3">
+          <label for="loginPassword" class="form-label">Jelszó</label>
+          <input formControlName="password" type="password" class="form-control" id="loginPassword">
+        </div>
 
-      <button class="btn btn-primary mb-3" routerLink="admin">Bejelentkezés</button>
+        <button [disabled]="loginForm.invalid" type="submit" class="btn btn-primary mb-3">Bejelentkezés</button>
+      </form>
+
 
       <p>Nincs még felhasználói fiókod?</p>
       <button class="btn btn-primary mb-3" routerLink="/register">Regisztráció</button>

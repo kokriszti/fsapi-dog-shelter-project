@@ -60,8 +60,8 @@ export class DogListComponent implements OnInit {
   }
 
   public deleteDog (dog: DogModel | undefined) {
-    if (dog?.id) {
-      this.dogService.deleteDog(dog.id).subscribe({
+    if (dog?._id) {
+      this.dogService.deleteDog(dog._id).subscribe({
         next: () => {
           this.dogService.getDogs().subscribe({
             next: (dogsFromServer: DogModel[]) => {

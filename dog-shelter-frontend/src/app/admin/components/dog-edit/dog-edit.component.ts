@@ -29,7 +29,7 @@ export class DogEditComponent implements OnInit, OnDestroy {
     isVaccinated: new FormControl("", Validators.required),
     isSterilized: new FormControl("", Validators.required),
     kennelNr: new FormControl("", [Validators.required, Validators.min(1), Validators.max(30)]),
-    activity: new FormControl("", Validators.required),
+    activity: new FormControl(""),
     toChild: new FormControl(""),
     toFlat: new FormControl("")
   })
@@ -158,16 +158,22 @@ export class DogEditComponent implements OnInit, OnDestroy {
     if (this.idReadFromRoute === "new-dog") {          //ha új kutáyt mentünk
       myDog.status = "adoptable"
       this.dogService.saveDog(myDog).subscribe({
-        next: (dog: DogModel) => {console.log(dog);
+        next: (dog: DogModel) => {
+          console.log(dog);
+          this.dogForm.reset();
+          this.router.navigate(["admin", "dogs"])
         },
         error: (e) => {console.log(e);
         },
       })
     } else  if (this.selectedDog){                 //ha meglévő kutyát frissítünk
       myDog.status = this.selectedDog.status;
-      myDog.id = this.selectedDog.id;
+      myDog._id = this.selectedDog._id;
       this.dogService.updateDog(myDog).subscribe({
-        next: (dog: DogModel) => {console.log(dog);
+        next: (dog: DogModel) => {
+          console.log(dog);
+          this.dogForm.reset()
+          this.router.navigate(["admin", "dogs"])
         },
         error: (e) => {console.log(e);
         },

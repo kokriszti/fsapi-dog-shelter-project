@@ -51,7 +51,7 @@
             <button class="hm-btn text-white mb-2" [disabled]=appointmentForm.invalid type="submit"><i class="fa-solid fa-paw"></i> Lefoglalom</button>
           </form>
 
-          <a class="hm-btn text-white" [routerLink]="'/dogs/' + selectedDog?.id"><i class="fa-solid fa-caret-left"></i> Mégsem</a>
+          <a class="hm-btn text-white" [routerLink]="'/dogs/' + selectedDog?._id"><i class="fa-solid fa-caret-left"></i> Mégsem</a>
         </div>
       </div>
 

@@ -1,9 +1,7 @@
 export interface AppointmentModel {
-  id?: number,
-  dogId: number,
-  dogName: string,
-  userId: number,
-  userName: string,
+  _id?: string,
+  dog: string,
+  user: string,
   date: string,
   time: string,
   comment?: string

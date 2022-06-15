@@ -83,7 +83,7 @@
             <tr >
               <td>{{userAppointment?.date}}</td>
               <td>{{userAppointment?.time}}</td>
-              <td><a routerLink="//dogs/{{userAppointment?.dogId}}">{{userAppointment?.dogName}}</a></td>
+              <td><a routerLink="//dogs/{{userAppointment?.dog?._id}}">{{userAppointment?.dog?.name}}</a></td>
               <td>{{userAppointment?.comment}}</td>
               <td><button class="hm-btn text-white mb-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Időpont törlése</button></td>
             </tr>
@@ -114,7 +114,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Mégsem</button>
-        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="deleteAppointment(userAppointment?.id)">Törlés</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="deleteAppointment(userAppointment?._id)">Törlés</button>
       </div>
     </div>
   </div>

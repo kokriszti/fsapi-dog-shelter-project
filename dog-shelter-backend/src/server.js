@@ -1,5 +1,6 @@
 const express = require("express");
 const morgan = require("morgan");
+const cors = require('cors');
 const logger = require("./config/logger");
 const createError = require("http-errors")
 const dogRoutes = require("./controllers/dog/dog.routes");
@@ -7,6 +8,8 @@ const userRoutes = require("./controllers/user/user.routes")
 const appointmentRoutes = require("./controllers/appointment/appointment.routes")
 
 const app = express();
+
+app.use(cors());
 
 //auth
 const authenticationByJWT = require("./auth/authenticate")
@@ -29,9 +32,11 @@ app.post("/login", authHandler.login)
 app.post("/refresh", authHandler.refresh)
 app.post("/logout", authHandler.logout)
 
-app.use("/dog", authenticationByJWT, adminRoleHandler, dogRoutes)
+//autentikáció, autorizáció:
+//app.use("/dog", authenticationByJWT, adminRoleHandler, dogRoutes)
+app.use("/dog", dogRoutes)
 app.use("/user", userRoutes)
-app.use("/appointment", authenticationByJWT, appointmentRoutes)
+app.use("/appointment", appointmentRoutes)
 
 app.use("/", (req, res, next) => {
     return next(new createError.BadRequest("Endpoint does not exist"))

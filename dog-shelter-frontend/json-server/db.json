@@ -1,8 +1,6 @@
 {
-  "dogs": [
+  "dog": [
     {
-      "id": 1,
-      "status": "adopted",
       "name": "Jephthah",
       "gender": "szuka",
       "size": "nagy",
@@ -12,22 +10,11 @@
       "isVaccinated": true,
       "isSterilized": true,
       "kennelNr": 11,
-      "activity": "magas",
+      "activity": "nyugodt",
       "toChild": true,
       "toFlat": true,
-      "appointments": [],
-      "owner": {
-        "ownerLastName": "",
-        "ownerFirstName": "",
-        "ownerEmail": "",
-        "ownerPhone": "",
-        "ownerAddress": {
-          "zip": "",
-          "city": "",
-          "streetAndNr": ""
-        },
-        "dateOfAdoption": ""
-      }
+      "status": "adopted",
+      "id": 1
     },
     {
       "name": "Devin",
@@ -397,7 +384,7 @@
       ]
     }
   ],
-  "appointments": [
+  "appointment": [
     {
       "id": 1,
       "dogId": 8,
@@ -625,7 +612,7 @@
       "id": 24
     }
   ],
-  "users": [
+  "user": [
     {
       "id": 1,
       "username": "user1",

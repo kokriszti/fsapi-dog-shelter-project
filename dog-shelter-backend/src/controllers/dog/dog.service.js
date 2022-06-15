@@ -2,14 +2,14 @@ const Dog = require("../../models/dog.model")
 
 
 //READ:
-exports.findAll = () => {
-    return Dog.find()
+exports.findAll = (filter) => {
+    return Dog.find(filter)
 }
 
 //READ BY ID:
 exports.findOne = id => {
     return Dog.findById(id)
-      //  .populate("appointments", {date: 1, _id: 0})          //toDo: ezzel a sorral nem jó, megnézni
+      //  .populate("appointments", {date: 1, _id: 0})
 }
 
 //CREATE:

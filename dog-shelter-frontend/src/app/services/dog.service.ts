@@ -8,7 +8,7 @@ import {UserModel} from "../models/user.model";
   providedIn: 'root'
 })
 export class DogService {
-  private readonly DOG_URL: string = "http://localhost:3000/dogs";
+  private readonly DOG_URL: string = "http://localhost:3000/dog";
 
   constructor(private http: HttpClient) { }
 
@@ -22,8 +22,8 @@ export class DogService {
     return this.http.get<DogModel[]>(`${this.DOG_URL}${queryParams}`);
   }
 
-  public getDog(id: number): Observable<DogModel> {
-    return this.http.get<DogModel>(`${this.DOG_URL}/${id}`);
+  public getDog(_id: number): Observable<DogModel> {
+    return this.http.get<DogModel>(`${this.DOG_URL}/${_id}`);
   }
 
   public saveDog(dog: DogModel): Observable<DogModel> {
@@ -32,16 +32,16 @@ export class DogService {
   }
 
   public updateDog(dog: DogModel): Observable<DogModel> {
-    return this.http.put<DogModel>(`${this.DOG_URL}/${dog.id}`, dog)
+    return this.http.put<DogModel>(`${this.DOG_URL}/${dog._id}`, dog)
     // A frissített objektumot adja vissza
   }
 
   public patchDog(dog: DogModel, body: any) {
-    return this.http.patch(`${this.DOG_URL}/${dog.id}`, body)
+    return this.http.patch(`${this.DOG_URL}/${dog._id}`, body)
   }
 
-  public deleteDog(id: number): Observable<Object> {
-    return this.http.delete<Object>(`${this.DOG_URL}/${id}`)
+  public deleteDog(_id: string): Observable<Object> {
+    return this.http.delete<Object>(`${this.DOG_URL}/${_id}`)
     // Üres objektumot ad vissza
   }
 

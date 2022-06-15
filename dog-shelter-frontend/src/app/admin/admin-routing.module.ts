@@ -8,10 +8,15 @@ import {DogDataComponent} from "./components/dog-data/dog-data.component";
 import {DogEditComponent} from "./components/dog-edit/dog-edit.component";
 import {AppointmentListComponent} from "./components/appointment-list/appointment-list.component";
 import {AdoptionDataComponent} from "../public/components/adoption-data/adoption-data.component";
+import {AuthGuardService} from "../services/auth-guard.service";
+import {AdminGuardService} from "../services/admin-guard.service";
 
 const routes: Routes = [
   {
-    path: '', component: AdminComponent, children: [
+    path: '',
+    component: AdminComponent,
+    canActivate: [AuthGuardService, AdminGuardService],
+    children: [
       { path: "", component: DogListComponent },
       { path: "dogs", component: DogListComponent },
       { path: "dogs/:id", component: DogDataComponent },

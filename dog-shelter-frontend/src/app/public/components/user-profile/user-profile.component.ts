@@ -8,6 +8,7 @@ import { UserService } from "../../../services/user.service"
 import { AppointmentService } from "../../../services/appointment.service"
 import {DogModel} from "../../../models/dog.model";
 import {AppointmentModel} from "../../../models/appointment.model";
+import {AppointmentPopulatedModel} from "../../../models/appointment-populated.model";
 import {DateService} from "../../../services/date.service";
 
 @Component({
@@ -20,7 +21,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   public idReadFromRoute?: any;
   public subscription?: Subscription;
   public selectedUser?: UserModel;
-  public userAppointment?: AppointmentModel
+  public userAppointment?: AppointmentPopulatedModel
 
   public userForm: FormGroup = new FormGroup({
     username: new FormControl("", Validators.required),
@@ -59,8 +60,9 @@ export class UserProfileComponent implements OnInit, OnDestroy {
 
     const today = this.dateService.dateToString(0)
 
-    this.appointmentService.getAppointments({date_gte: today, userId: this.idReadFromRoute}).subscribe({
-      next: (appointmentsFromServer: AppointmentModel[]) => {
+    this.appointmentService.getAppointments({date_gte: today, user: this.idReadFromRoute}).subscribe({
+      next: (appointmentsFromServer: AppointmentPopulatedModel[]) => {
+        console.log(appointmentsFromServer)
         this.userAppointment = appointmentsFromServer[appointmentsFromServer.length-1];
         console.log(this.userAppointment);
       },
@@ -103,7 +105,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
     if(this.selectedUser) {
 
       const userToUpdate: UserModel = {
-        id: this.idReadFromRoute,
+        _id: this.idReadFromRoute,
         username: this.userForm.get("username")?.value,
         password: this.userForm.get("password")?.value,
         isAdmin: this.selectedUser.isAdmin,
@@ -130,7 +132,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
     }
   }   //saveUser vége
 
-  public deleteAppointment(id: number | undefined){
+  public deleteAppointment(id: string | undefined){
     if(id) {
     this.appointmentService.deleteAppointments(id).subscribe({
       next: () => {
