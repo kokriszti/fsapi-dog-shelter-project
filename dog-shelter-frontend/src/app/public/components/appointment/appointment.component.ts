@@ -94,12 +94,16 @@ export class AppointmentComponent implements OnInit, OnDestroy {
 
             //nullcheck:
             if (this.selectedDog && this.selectedDog._id ) {
+              const userFromStorage: any = localStorage.getItem('user')
+
 
               //userID és név egyelőre beégetett, autentikáció után cserélni
               const newAppointment: AppointmentModel = {
                 dog: this.selectedDog._id,
                 //toDo: usert dinamikussá:
-                user: "6293b58bdc9f697f23468c8d",
+
+                user: JSON.parse(userFromStorage)._id,
+                //user: "6293b58bdc9f697f23468c8d",
                 date: this.appointmentForm.get("date")?.value,
                 time: this.appointmentForm.get("time")?.value,
                 comment: this.appointmentForm.get("comment")?.value

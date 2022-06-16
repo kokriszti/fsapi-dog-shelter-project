@@ -20,7 +20,7 @@ const routes: Routes = [
       { path: "dogs", component: DogsComponent },
       { path: "dogs/:id", component: DogDetailsComponent },
       { path: "appointment/:dogId", component: AppointmentComponent, canActivate: [AuthGuardService] },
-      { path: "user/:userId", component: UserProfileComponent },
+      { path: "user/:userId", component: UserProfileComponent, canActivate: [AuthGuardService] },
       { path: "**", component: PageNotFoundComponent }
     ]
   }

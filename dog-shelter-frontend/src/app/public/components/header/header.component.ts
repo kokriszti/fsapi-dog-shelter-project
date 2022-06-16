@@ -23,6 +23,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
     if(localStorage.getItem("refreshToken")) {
       this.userRefreshSubscription = this.authService.refreshUserAuthentication().subscribe()
+    } else {
+      this.authService.loginDone = true;
     }
   }
 
