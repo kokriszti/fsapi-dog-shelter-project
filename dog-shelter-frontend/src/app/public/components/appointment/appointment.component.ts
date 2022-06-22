@@ -8,6 +8,7 @@ import { AppointmentService } from 'src/app/services/appointment.service';
 import {AppointmentModel} from "../../../models/appointment.model";
 import {AppointmentPopulatedModel} from "../../../models/appointment-populated.model";
 import {DateService} from "../../../services/date.service";
+import {AuthService} from "../../../services/auth.service";
 
 
 @Component({
@@ -24,6 +25,8 @@ export class AppointmentComponent implements OnInit, OnDestroy {
   public minDate: string = ""
   public maxDate: string = ""
   public appointmentTaken: boolean = false
+  public selectedUser: any;
+  private userSignInSubscription?: Subscription;
 
   public appointmentForm: FormGroup = new FormGroup({
     date: new FormControl("", [Validators.required, this.dateValidator]),
@@ -35,7 +38,8 @@ export class AppointmentComponent implements OnInit, OnDestroy {
               private dogService: DogService,
               private appointmentService: AppointmentService,
               private dateService: DateService,
-              private router: Router) { }
+              private router: Router,
+              private authService: AuthService) { }
 
   ngOnInit(): void {
 
@@ -52,11 +56,13 @@ export class AppointmentComponent implements OnInit, OnDestroy {
       next: (dog) => {this.selectedDog = dog},
       error: (e) => {console.log(e)}
     })
+
+    this.userSignInSubscription = this.authService.getUserLoggedInObject().subscribe(
+      user => this.selectedUser = user
+    )
   }
 
-  ngOnDestroy(): void {
-    this.subscription?.unsubscribe();
-  }
+
 
   public dateValidator(dateInput: AbstractControl): ValidationErrors | null {
     //minimum dátum beállítása következő napra
@@ -99,7 +105,8 @@ export class AppointmentComponent implements OnInit, OnDestroy {
               const newAppointment: AppointmentModel = {
                 dog: this.selectedDog._id,
                 //toDo: usert dinamikussá:
-                user: "6293b58bdc9f697f23468c8d",
+                //user: "6293b58bdc9f697f23468c8d",
+                user: this.selectedUser._id,
                 date: this.appointmentForm.get("date")?.value,
                 time: this.appointmentForm.get("time")?.value,
                 comment: this.appointmentForm.get("comment")?.value
@@ -131,5 +138,10 @@ export class AppointmentComponent implements OnInit, OnDestroy {
 
 
   }   //onSubmit vége
+
+  ngOnDestroy(): void {
+    this.subscription?.unsubscribe();
+    if(this.userSignInSubscription) this.userSignInSubscription.unsubscribe();
+  }
 
 }
