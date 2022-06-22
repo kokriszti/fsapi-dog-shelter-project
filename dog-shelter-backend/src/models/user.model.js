@@ -5,7 +5,7 @@ const UserSchema = new mongoose.Schema({
     username: {
         type: String,
         required: true,
-        minLength: 5
+        minLength: 3
     },
     password: {
         type: String,
@@ -67,32 +67,26 @@ const UserSchema = new mongoose.Schema({
             required: true
         },
         wantedSizeSmall: {
-            type: Boolean,
-            required: true
+            type: Boolean
         },
         wantedSizeMedium: {
-            type: Boolean,
-            required: true
+            type: Boolean
         },
         wantedSizeBig: {
-            type: Boolean,
-            required: true
+            type: Boolean
         },
         wantedAgePuppy: {
             type: Boolean,
             required: true
         },
         wantedAgeYoung: {
-            type: Boolean,
-            required: true
+            type: Boolean
         },
         wantedAgeAdult: {
-            type: Boolean,
-            required: true
+            type: Boolean
         },
         wantedAgeOld: {
-            type: Boolean,
-            required: true
+            type: Boolean
         },
         introduction: {
             type: String,

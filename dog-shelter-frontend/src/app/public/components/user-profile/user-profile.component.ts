@@ -106,8 +106,11 @@ export class UserProfileComponent implements OnInit, OnDestroy {
 
       const userToUpdate: UserModel = {
         _id: this.idReadFromRoute,
-        username: this.userForm.get("username")?.value,
-        password: this.userForm.get("password")?.value,
+        username: this.selectedUser.username,
+        password: this.selectedUser.password,
+        //toDo: ha később nem jön ki hiba, ezt kiszedni:
+        // username: this.userForm.get("username")?.value,
+        // password: this.userForm.get("password")?.value,
         isAdmin: this.selectedUser.isAdmin,
         adoptionForm: adoptionFormFromChild
       }

@@ -25,7 +25,7 @@ export class AdoptionFormComponent implements OnInit {
     otherPet: new FormControl("", Validators.required),
     otherPetDetails: new FormControl(""),
     nrOfHoursAlone: new FormControl("", [Validators.required, Validators.min(0), Validators.max(24)]),
-    nrOfDailyWalks: new FormControl("", [Validators.required, Validators.min(0), Validators.max(5)]),
+    nrOfDailyWalks: new FormControl("", [Validators.required, Validators.min(1), Validators.max(5)]),
     wantedSizeSmall: new FormControl(false),
     wantedSizeMedium: new FormControl(false),
     wantedSizeBig: new FormControl(false),
