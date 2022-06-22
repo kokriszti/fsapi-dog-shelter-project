@@ -17,6 +17,8 @@ export class LoginComponent implements OnInit {
     password: new FormControl("", [Validators.required])
   })
 
+  public wrongAuth: boolean = false;
+
   constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
@@ -24,12 +26,13 @@ export class LoginComponent implements OnInit {
 
   public signIn(): void {
     if(this.loginForm.valid) {
-      console.log(this.loginForm.value)
+      console.log(this.loginForm.value);
 
       this.authService.login(this.loginForm.value).subscribe({
           next: () => {
           },
           error: () => {
+            this.wrongAuth = true
           },
           complete: () => {
             //toDo: ha időpontttól jön, guard oda engedje tovább, ha belépés menüből, főoldalra
@@ -41,6 +44,8 @@ export class LoginComponent implements OnInit {
     }
   }
 
-
+  public clearErrMessage(): void{
+    this.wrongAuth = false;
+  }
 
 }

@@ -30,9 +30,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.authService.logout().subscribe({
       next: () => {},
       error: () => {},
-      complete: () => {
-        this.router.navigate([""])
-      },
+      complete: () => {},
     })
   }
 

@@ -11,13 +11,17 @@
       <form [formGroup]="loginForm" (ngSubmit)="signIn()">
         <div class="my-3">
           <label for="loginName" class="form-label">Felhasználónév</label>
-          <input formControlName="username" type="text" class="form-control" id="loginName" aria-describedby="emailHelp">
+          <input (focus)="clearErrMessage()" formControlName="username" type="text" class="form-control" id="loginName" aria-describedby="emailHelp">
         </div>
 
         <div class="my-3">
           <label for="loginPassword" class="form-label">Jelszó</label>
-          <input formControlName="password" type="password" class="form-control" id="loginPassword">
+          <input (focus)="clearErrMessage()" formControlName="password" type="password" class="form-control" id="loginPassword">
         </div>
+        <div *ngIf="wrongAuth"  class="mb-2">
+          <small class="text-danger">Hibás felhasználónév vagy jelszó</small>
+        </div>
+
 
         <button [disabled]="loginForm.invalid" type="submit" class="btn btn-primary mb-3">Bejelentkezés</button>
       </form>
