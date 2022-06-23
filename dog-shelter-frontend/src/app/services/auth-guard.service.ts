@@ -16,17 +16,19 @@ export class AuthGuardService implements CanActivate{
       return this.authService.getUserLoggedInObject().pipe(
         map((user: any) => {
           if(!user) {
-            return this.router.createUrlTree(["login"]);
+            return this.router.createUrlTree(["login"], { queryParams: { returnUrl: state.url }});
           } else {
             return true
           }
         })
       )
+
+      //return true;
     } else {
       if (this.authService.userObjectValue !== null) {
         return true;
       } else {
-        return this.router.createUrlTree(["login"]);
+        return this.router.createUrlTree(["login"], { queryParams: { returnUrl: state.url }});
       }
     }
 

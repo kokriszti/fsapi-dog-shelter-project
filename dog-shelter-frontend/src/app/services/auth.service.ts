@@ -1,21 +1,28 @@
-import { Injectable } from '@angular/core';
+import {Injectable, OnDestroy} from '@angular/core';
 import {environment} from "../../environments/environment";
 import {HttpClient} from "@angular/common/http";
 import {UserLoginModel} from "../models/user-login.model";
-import {BehaviorSubject, Observable, Subject} from "rxjs";
+import {BehaviorSubject, Observable, Subject, Subscription} from "rxjs";
 import {LoggedInUserModel} from "../models/logged-in-user.model";
 import {tap} from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
+export class AuthService implements OnDestroy{
 
   private readonly BASE_URL: string = "http://localhost:3000/";
   private readonly userLoggedInObject: Subject<any> = new Subject<any>();
+  private userRefreshSubscription?: Subscription;
   public loginDone = false;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    if(localStorage.getItem("refreshToken")) {
+      this.userRefreshSubscription = this.refreshUserAuthentication().subscribe()
+    } else {
+      this.loginDone = true;
+    }
+  }
 
   public login(loginData: UserLoginModel): Observable<LoggedInUserModel> {
     return this.http.post<LoggedInUserModel>(this.BASE_URL + "login", loginData)
@@ -117,5 +124,9 @@ export class AuthService {
     }
 
     return null;
+  }
+
+  ngOnDestroy(): void {
+    this.userRefreshSubscription?.unsubscribe()
   }
 }

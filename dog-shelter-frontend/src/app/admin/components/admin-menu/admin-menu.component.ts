@@ -23,7 +23,7 @@ export class AdminMenuComponent implements OnInit, OnDestroy {
 
     //toDo: frissítéskor login oldalra dob, guard?
     if(localStorage.getItem("refreshToken")) {
-      this.userRefreshSubscription = this.authService.refreshUserAuthentication().subscribe()
+      //this.userRefreshSubscription = this.authService.refreshUserAuthentication().subscribe()
     }
   }
 

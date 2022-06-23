@@ -15,7 +15,7 @@ export class AdminGuardService implements CanActivate{
       return this.authService.getUserLoggedInObject().pipe(
         map((user: any) => {
           if(!user.isAdmin) {
-            return this.router.createUrlTree(["login"]);
+            return this.router.createUrlTree(["login"], { queryParams: { returnUrl: state.url }});
           } else {
             return true
           }
@@ -25,7 +25,7 @@ export class AdminGuardService implements CanActivate{
       if (this.authService.userObjectValue !== null && this.authService.userObjectValue.isAdmin) {
         return true;
       } else {
-        return this.router.createUrlTree(["login"]);
+        return this.router.createUrlTree(["login"], { queryParams: { returnUrl: state.url }});
       }
     }
   }
