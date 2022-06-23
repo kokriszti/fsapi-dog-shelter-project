@@ -45,7 +45,7 @@
             <a class="hm-btn text-white" routerLink="form"><i class="fa-solid fa-pencil"></i> Adatok szerkesztése</a>
           </div>
           <div class="mb-2">
-            <button class="hm-btn text-white" [disabled]="selectedDog?.status=='adopted'" (click)="editAdoption()"><i class="fa-solid fa-paw"></i> Örökbe adás</button>
+            <button *ngIf="!adoptionEditMode" class="hm-btn text-white" [disabled]="selectedDog?.status=='adopted'" (click)="editAdoption()"><i class="fa-solid fa-paw"></i> Örökbe adás</button>
           </div>
 <!--          <div>-->
 <!--            <a class="hm-btn text-white" routerLink="/dogs"><i class="fa-solid fa-caret-left"></i> Vissza a listához</a>-->

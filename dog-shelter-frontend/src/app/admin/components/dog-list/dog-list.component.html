@@ -18,8 +18,8 @@
       <td>{{dog.size}}</td>
       <td>{{dog.dateOfBirth}}</td>
       <td>
-        <button class="btn btn-success" [routerLink]="'/admin/dogs/' + dog._id">Részletek</button>
-        <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop" (click)="setDogToDelete(dog)">Delete</button>
+        <button class="btn btn-success" [routerLink]="'/admin/dogs/' + dog._id" title="Részletek"><i class="fa-solid fa-magnifying-glass"></i></button>
+        <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop" (click)="setDogToDelete(dog)" title="Törlés"><i class="fa-solid fa-trash-can"></i></button>
       </td>
     </tr>
 

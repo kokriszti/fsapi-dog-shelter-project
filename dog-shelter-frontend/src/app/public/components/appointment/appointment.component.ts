@@ -116,6 +116,7 @@ export class AppointmentComponent implements OnInit, OnDestroy {
                 next: (appointment) => {
                   console.log(appointment)
                   this.appointmentForm.reset()
+                  this.router.navigate(["dogs", this.selectedDog?._id])
                 },
                 error: (e) => {
                   console.log(e)

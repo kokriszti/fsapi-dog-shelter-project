@@ -41,8 +41,8 @@
               <small *ngIf="appointmentForm.get('time')?.invalid && appointmentForm.get('time')?.touched" class="text-danger">Kérjük, válassz időpontot!</small>
             </div>
 
-            <div>
-              <label for="inputComment" class="form-label">Megjegyzés</label>
+            <div class="text-start">
+              <label for="inputComment" class="form-label fst-italic fw-bolder text-muted">Megjegyzés:</label>
               <textarea formControlName="comment" class="form-control" id="inputComment" rows="3"></textarea>
               <small *ngIf="appointmentForm.get('comment')?.invalid && appointmentForm.get('comment')?.touched" class="text-danger">Maximum 500 karakter</small>
               <small *ngIf="appointmentTaken" class="text-danger">Ez az időpont már foglalt, kérjük válassz másikat!</small>
