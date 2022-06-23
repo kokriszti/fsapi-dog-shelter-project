@@ -21,6 +21,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       user => this.userObject = user
     )
 
+    //toDo: kell ide? auth service constructorbanmár bent van, kipróbálni:
     if(localStorage.getItem("refreshToken")) {
       this.userRefreshSubscription = this.authService.refreshUserAuthentication().subscribe()
     }
@@ -36,6 +37,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     if(this.userSignInSubscription) this.userSignInSubscription.unsubscribe();
+    //toDo: ha onInitben nem kell, ezt is kiszedni:
     if(this.userRefreshSubscription) this.userRefreshSubscription.unsubscribe();
   }
 

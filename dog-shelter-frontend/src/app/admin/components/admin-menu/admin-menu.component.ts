@@ -21,7 +21,7 @@ export class AdminMenuComponent implements OnInit, OnDestroy {
       user => this.userObject = user
     )
 
-    //toDo: frissítéskor login oldalra dob, guard?
+    //toDo: ez már auth service constructorban van, kiszedni:
     if(localStorage.getItem("refreshToken")) {
       this.userRefreshSubscription = this.authService.refreshUserAuthentication().subscribe()
     }
@@ -31,9 +31,7 @@ export class AdminMenuComponent implements OnInit, OnDestroy {
     this.authService.logout().subscribe({
       next: () => {},
       error: () => {},
-      complete: () => {
-        //this.router.navigate([""])
-      },
+      complete: () => {      },
     })
   }
 

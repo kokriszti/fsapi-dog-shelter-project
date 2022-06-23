@@ -3,7 +3,7 @@ import {UserModel} from "../../../models/user.model";
 import {AdoptionFormModel} from "../../../models/adoption-form-model";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {AuthService} from "../../../services/auth.service";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -12,6 +12,8 @@ import {Router} from "@angular/router";
 })
 export class LoginComponent implements OnInit {
 
+  public returnUrl: string = "";
+
   public loginForm: FormGroup = new FormGroup({
     username: new FormControl("", [Validators.required]),
     password: new FormControl("", [Validators.required])
@@ -19,9 +21,10 @@ export class LoginComponent implements OnInit {
 
   public wrongAuth: boolean = false;
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.returnUrl = this.activatedRoute.snapshot.queryParams['returnUrl'] || '/';
   }
 
   public signIn(): void {
@@ -35,9 +38,8 @@ export class LoginComponent implements OnInit {
             this.wrongAuth = true
           },
           complete: () => {
-            //toDo: ha időpontttól jön, guard oda engedje tovább, ha belépés menüből, főoldalra
             this.loginForm.reset()
-            this.router.navigate([""])
+            this.router.navigateByUrl(this.returnUrl)
           },
         }
       )
