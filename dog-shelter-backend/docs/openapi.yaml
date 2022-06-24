@@ -532,11 +532,11 @@ components:
                 - city
                 - streetAndNr
               properties:
-                ownerFirstName:
+                zip:
                   type: number
-                ownerEmail:
+                city:
                   type: string
-                ownerPhone:
+                streetAndNr:
                   type: string
 
     User:
