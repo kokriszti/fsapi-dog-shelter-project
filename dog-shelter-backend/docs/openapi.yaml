@@ -1,0 +1,633 @@
+openapi: 3.0.0
+info:
+  title: Dog shelter project
+  version: 1.0.0
+  description: API to handle dog shelter operations.
+servers:
+  - url: http://localhost:3000
+    description: URL for local testing
+
+paths:
+  /login:
+    post:
+      tags:
+        - auth
+      summary: Login user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '200':
+          description: Successful login
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  accessToken:
+                    type: string
+                  refreshToken:
+                    type: string
+        '404':
+          description: Username or password invalid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /dog:
+    get:
+      security:
+        - bearerAuth: []
+      summary: Returns a list of all dogs
+      tags:
+        - dog
+      responses:
+        '200':
+          description: List of all dogs returned successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Dog'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+    post:
+      security:
+        - bearerAuth: []
+      summary: Creates a new dog
+      tags:
+        - dog
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/Dog'
+      responses:
+        '201':
+          description: Dog has been successfully created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Person'
+        '400':
+          description: Invalid request body
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /dog/{dogID}:
+    get:
+      security:
+        - bearerAuth: []
+      summary: Returns a dog with given ID
+      tags:
+        - dog
+      parameters:
+        - name: dogID
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Dog data returned successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Dog'
+        '404':
+          description: Dog with given ID not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      security:
+        - bearerAuth: []
+      summary: Updates a dog with given ID
+      tags:
+        - dog
+      parameters:
+        - name: dogID
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/Dog'
+      responses:
+        '200':
+          description: Dog data updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Dog'
+        '404':
+          description: Dog with given ID not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      security:
+        - bearerAuth: []
+      summary: Deletes a dog with given ID
+      tags:
+        - dog
+      parameters:
+        - name: dogID
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Dog data deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Dog'
+        '404':
+          description: Dog with given ID not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /user:
+    post:
+      security:
+        - bearerAuth: []
+      summary: Creates a new user
+      tags:
+        - user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/User'
+      responses:
+        '201':
+          description: User has been successfully created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Invalid request body
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /user/{userID}:
+    get:
+      security:
+        - bearerAuth: []
+      summary: Returns a user with given ID
+      tags:
+        - user
+      parameters:
+        - name: userID
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: User data returned successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '404':
+          description: User with given ID not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      security:
+        - bearerAuth: []
+      summary: Updates a user with given ID
+      tags:
+        - user
+      parameters:
+        - name: userID
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/User'
+      responses:
+        '200':
+          description: User data updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '404':
+          description: User with given ID not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /appointment:
+    get:
+      security:
+        - bearerAuth: []
+      summary: Returns a list of all appointments
+      tags:
+        - appointment
+      responses:
+        '200':
+          description: List of all appointments returned successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Appointment'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+    post:
+      security:
+        - bearerAuth: []
+      summary: Creates a new appointment
+      tags:
+        - appointment
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/Appointment'
+      responses:
+        '201':
+          description: Appointment has been successfully created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Appointment'
+        '400':
+          description: Invalid request body
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /appointment/{appointmentID}:
+    get:
+      security:
+        - bearerAuth: []
+      summary: Returns an appointment with given ID
+      tags:
+        - appointment
+      parameters:
+        - name: appointmentID
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Appointment data returned successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Appointment'
+        '404':
+          description: Appointment with given ID not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      security:
+        - bearerAuth: []
+      summary: Deletes an appointment with given ID
+      tags:
+        - appointment
+      parameters:
+        - name: appointmentID
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Appointment data deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Appointment'
+        '404':
+          description: Appointment with given ID not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+tags:
+  - name: dog
+    description: Access to dogs
+  - name: user
+    description: Access to users
+  - name: appointment
+    description: Access to appointments
+  - name: auth
+    description: Authentication handling
+
+
+components:
+  schemas:
+
+    Appointment:
+      type: object
+      required:
+        - date
+        - time
+        - dog
+        - user
+      properties:
+        date:
+          type: string
+        time:
+          type: string
+        dog:
+          type: string
+        user:
+          type: string
+        comment?:
+          type: string
+
+    Dog:
+      type: object
+      required:
+        - status
+        - name
+        - gender
+        - size
+        - dateOfBirth
+        - description
+        - imgSrc
+        - isVaccinated
+        - isSterilized
+        - kennelNr
+      properties:
+        status:
+          type: string
+        name:
+          type: string
+        gender:
+          type: string
+        size:
+          type: string
+        dateOfBirth:
+          type: string
+        description:
+          type: string
+        imgSrc:
+          type: string
+        isVaccinated:
+          type: boolean
+        isSterilized:
+          type: boolean
+        kennelNr:
+          type: string
+        activity:
+          type: string
+        toChild:
+          type: boolean
+        toFlat:
+          type: boolean
+        appointments:
+          type: array
+          items:
+            $ref: '#/components/schemas/Appointment'
+        owner:
+          type: object
+          required:
+            - ownerLastName
+            - ownerFirstName
+            - ownerEmail
+            - ownerPhone
+            - ownerAddress
+            - dateOfAdoption
+          properties:
+            ownerLastName:
+              type: string
+            ownerFirstName:
+              type: string
+            ownerEmail:
+              type: string
+            ownerPhone:
+              type: string
+            ownerAddress:
+              type: object
+              required:
+                - zip
+                - city
+                - streetAndNr
+              properties:
+                ownerFirstName:
+                  type: number
+                ownerEmail:
+                  type: string
+                ownerPhone:
+                  type: string
+
+    User:
+      type: object
+      required:
+        - username
+        - password
+        - isAdmin
+        - adoptionForm
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+        isAdmin:
+          type: boolean
+        adoptionForm:
+          type: object
+          required:
+            - lastName
+            - firstName
+            - phone
+            - email
+            - age
+            - nrOfPplInHousehold
+            - childrenInHousehold
+            - typeOfHouse
+            - otherDog
+            - otherPet
+            - nrOfHoursAlone
+            - nrOfDailyWalks
+            - introduction
+          properties:
+            lastName:
+              type: string
+            firstName:
+              type: string
+            phone:
+              type: string
+            email:
+              type: string
+            age:
+              type: number
+            nrOfPplInHousehold:
+              type: number
+            childrenInHousehold:
+              type: boolean
+            ageOfYoungestChild:
+              type: string
+            typeOfHouse:
+              type: string
+            otherDog:
+              type: boolean
+            otherPet:
+              type: boolean
+            otherPetDetails:
+              type: string
+            nrOfHoursAlone:
+              type: number
+            nrOfDailyWalks:
+              type: number
+            wantedSizeSmall:
+              type: boolean
+            wantedSizeMedium:
+              type: boolean
+            wantedSizeBig:
+              type: boolean
+            wantedAgePuppy:
+              type: boolean
+            wantedAgeYoung:
+              type: boolean
+            wantedAgeAdult:
+              type: boolean
+            wantedAgeOld:
+              type: boolean
+            introduction:
+              type: string
+
+    Error:
+      type: object
+      required:
+        - has_error
+        - message
+      properties:
+        has_error:
+          type: boolean
+        message:
+          type: string
+
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
