@@ -125,20 +125,22 @@ A felhasználó megtekintheti a látogatásra érkező gazdijelölt örökbefoga
 
 # API végpontok
 
-- POST /user – felhasználói regisztráció
 - POST /login – felhasználó bejelentkezés
 - POST /refresh – felhasználó bejelentkezésének megújítása
 - POST /logout – felhasználó kilépés
+- POST /user – felhasználói regisztráció
 - GET /user/:id - felhasználó adatainak lekérése
 - PATCH /user/:id - felhasználó jelszavának módosítása
 - PUT /user/:id - felhasználó adatainak módosítása
 - GET /dog – nyilvántartott kutyák lekérdezése
 - GET /dog/:id – kutya adatainak lekérdezése
+- POST /dog – új kutya létrehozása
 - PUT /dog/:id - kutya adatainak módosítása
 - PATCH /dog/:id - kutya örökbeadása
 - DELETE /dog/:id - kutya törlése
 - GET /appointment – lefoglalt látogatások lekérdezése
 - GET /appointment:id – látogatás adatainak lekérdezése
+- POST /appointment – új látogatás létrehozása
 - DELETE /appointment:id – látogatás törlése
 
 # Adatstruktúra
