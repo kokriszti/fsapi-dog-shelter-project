@@ -7,7 +7,7 @@ import { UserModel } from '../models/user.model';
   providedIn: 'root'
 })
 export class UserService {
-  private readonly USER_URL: string = "http://localhost:3000/user";
+  private readonly USER_URL: string = "http://localhost:3000/api/user";
 
   constructor(private http: HttpClient) { }
 

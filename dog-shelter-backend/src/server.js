@@ -30,15 +30,15 @@ app.use(express.json());
 
 //auth végpont:
 // app.post("/login", login)            //refresh nélküli működés
-app.post("/login", authHandler.login)
-app.post("/refresh", authHandler.refresh)
-app.post("/logout", authHandler.logout)
+app.post("/api/login", authHandler.login)
+app.post("/api/refresh", authHandler.refresh)
+app.post("/api/logout", authHandler.logout)
 
 //autentikáció, autorizáció:
 //app.use("/dog", authenticationByJWT, adminRoleHandler, dogRoutes)
-app.use("/dog", dogRoutes)
-app.use("/user", userRoutes)
-app.use("/appointment", appointmentRoutes)
+app.use("/api/dog", dogRoutes)
+app.use("/api/user", userRoutes)
+app.use("/api/appointment", appointmentRoutes)
 
 //angular statikus kiszolgálása
 app.use("/", express.static(angularAppPath))
@@ -60,5 +60,7 @@ app.use((err, req, res, next) => {
         message: err.message
     });
 })
+
+
 
 module.exports = app;

@@ -8,7 +8,7 @@ import {UserModel} from "../models/user.model";
   providedIn: 'root'
 })
 export class DogService {
-  private readonly DOG_URL: string = "http://localhost:3000/dog";
+  private readonly DOG_URL: string = "http://localhost:3000/api/dog";
 
   constructor(private http: HttpClient) { }
 

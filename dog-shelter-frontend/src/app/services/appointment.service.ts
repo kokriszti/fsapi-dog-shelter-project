@@ -9,7 +9,7 @@ import {AppointmentPopulatedModel} from "../models/appointment-populated.model";
   providedIn: 'root'
 })
 export class AppointmentService {
-  private readonly APPOINTMENT_URL: string = "http://localhost:3000/appointment";
+  private readonly APPOINTMENT_URL: string = "http://localhost:3000/api/appointment";
 
   constructor(private http: HttpClient) { }
 

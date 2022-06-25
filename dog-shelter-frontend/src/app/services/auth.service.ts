@@ -11,7 +11,7 @@ import {tap} from "rxjs/operators";
 })
 export class AuthService implements OnDestroy{
 
-  private readonly BASE_URL: string = "http://localhost:3000/";
+  private readonly BASE_URL: string = "http://localhost:3000/api/";
   private readonly userLoggedInObject: Subject<any> = new Subject<any>();
   private userRefreshSubscription?: Subscription;
   public loginDone = false;
