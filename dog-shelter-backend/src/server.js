@@ -1,11 +1,13 @@
 const express = require("express");
 const morgan = require("morgan");
 const cors = require('cors');
+const path = require("path")
 const logger = require("./config/logger");
 const createError = require("http-errors")
 const dogRoutes = require("./controllers/dog/dog.routes");
 const userRoutes = require("./controllers/user/user.routes")
 const appointmentRoutes = require("./controllers/appointment/appointment.routes")
+const angularAppPath = path.join(__dirname, "..", "public", "angular")
 
 const app = express();
 
@@ -37,6 +39,13 @@ app.post("/logout", authHandler.logout)
 app.use("/dog", dogRoutes)
 app.use("/user", userRoutes)
 app.use("/appointment", appointmentRoutes)
+
+//angular statikus kiszolgálása
+app.use("/", express.static(angularAppPath))
+
+app.get("*", (req, res) => {
+    res.sendFile(angularAppPath + "/index.html")
+})
 
 app.use("/", (req, res, next) => {
     return next(new createError.BadRequest("Endpoint does not exist"))
