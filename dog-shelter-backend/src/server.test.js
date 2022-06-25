@@ -7,14 +7,32 @@ const logger = require("./config/logger");
 
 describe("REST API integration tests", () => {
     //toDo: átírni saját adatstruktúrára:
-    const insertData = [{
-        firstName: "John",
-        lastName: "Test",
-        email: "john@test.com"
+    const insertDogData = [{
+        "status": "adoptable",
+        "name": "Integration test 1",
+        "gender": "szuka",
+        "size": "nagy",
+        "dateOfBirth": "2021-10-23",
+        "description": "Integer ac leo. Pellentesque ultrices mattis odio.",
+        "imgSrc": "/assets/dog-pics/01.jpg",
+        "isVaccinated": true,
+        "isSterilized": true,
+        "kennelNr": "11",
+        "activity": "magas",
+        "toChild": true,
+        "toFlat": true,
+        "appointments": []
     }, {
-        firstName: "Kate",
-        lastName: "Test",
-        email: "kate@test.com"
+        "status": "adoptable",
+        "name": "Integration test 2",
+        "gender": "szuka",
+        "size": "nagy",
+        "dateOfBirth": "2021-10-23",
+        "description": "Integer ac leo. Pellentesque ultrices mattis odio.",
+        "imgSrc": "/assets/dog-pics/01.jpg",
+        "isVaccinated": true,
+        "isSterilized": true,
+        "kennelNr": "11",
     }];
 
     //minden teszteset előtt létrehoz adatbázis kapcsolatot
@@ -32,29 +50,65 @@ describe("REST API integration tests", () => {
         return mongoDisconnect;
     })
 
-    test("GET /dog endpoint test", async () => {
-        await Dog.insertMany(insertData);
-        const resp = await supertest(app).get("/dog").expect(200)        //supertest miatt lehet így is az expect-et
-        //vagy: expect(resp.status).toBe(200)
+    test("GET /api/dog endpoint test", async () => {
+        await Dog.insertMany(insertDogData);
+        const resp = await supertest(app).get("/api/dog").expect(200)
         expect(Array.isArray(resp.body)).toBeTruthy();
-        expect(resp.body.length).toBe(insertData.length)
+        expect(resp.body.length).toBe(insertDogData.length)
         resp.body.forEach((dog, index) => {
-            expect(dog.firstName).toBe(insertData[index].firstName)         //toDo: adatstruktúrát átírni sajátra
-            expect(dog.lastName).toBe(insertData[index].lastName)
-            expect(dog.email).toBe(insertData[index].email)
+            expect(dog.status).toBe(insertDogData[index].status)         //toDo: adatstruktúrát átírni sajátra
+            expect(dog.name).toBe(insertDogData[index].name)
+            expect(dog.gender).toBe(insertDogData[index].gender)
         })
     });
 
-    test("GET /dog/:id endpoint test", async () => {
-        const testDogs = await Dog.insertMany(insertData);
+    test("GET api/dog/:id endpoint test", async () => {
+        const testDogs = await Dog.insertMany(insertDogData);
         const firstDogId = testDogs[0]._id;
-        const resp = await supertest(app).get(`/person/${firstDogId.toString()}`).expect(200)
+        const resp = await supertest(app).get(`/api/dog/${firstDogId.toString()}`).expect(200)
         expect(resp.body._id).toBe(firstDogId.toString())
-        expect(resp.body.firstName).toBe(insertData[0].firstName)           //toDo: adatstruktúrát átírni sajátra
-        expect(resp.body.lastName).toBe(insertData[0].lastName)
-        expect(resp.body.email).toBe(insertData[0].email)
+        expect(resp.body.status).toBe(insertDogData[0].status)
+        expect(resp.body.name).toBe(insertDogData[0].name)
+        expect(resp.body.gender).toBe(insertDogData[0].gender)
 
     })
+
+    test("POST /api/user endpoint test", async () => {
+        const newUser = {
+            "username": "integrationTest",
+            "password": "integrationTest",
+            "isAdmin": false,
+            "adoptionForm": {
+                "lastName": "integrationTest",
+                "firstName": "integrationTest",
+                "phone": "0630123456",
+                "email": "integrationTest",
+                "age": 30,
+                "nrOfPplInHousehold": 5,
+                "childrenInHousehold": true,
+                "ageOfYoungestChild": "6-12 év között",
+                "typeOfHouse": "Családi ház",
+                "otherDog": false,
+                "otherPet": true,
+                "otherPetDetails": "Rágcsáló",
+                "nrOfHoursAlone": 6,
+                "nrOfDailyWalks": 3,
+                "wantedSizeSmall": true,
+                "wantedSizeMedium": false,
+                "wantedSizeBig": false,
+                "wantedAgePuppy": true,
+                "wantedAgeYoung": true,
+                "wantedAgeAdult": false,
+                "wantedAgeOld": false,
+                "introduction": "integrationTest"
+            }
+        }
+
+        const resp = await supertest(app).post("/api/user").send(newUser).expect(201)
+            expect(resp.body.lastName).toBe(newUser.lastName)
+            expect(resp.body.firstName).toBe(newUser.firstName)
+            expect(resp.body.phone).toBe(newUser.phone)
+    });
 
 
 })
