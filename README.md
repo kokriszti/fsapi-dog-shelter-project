@@ -253,3 +253,8 @@ npm i
 npm run test
 ```
 
+# Swagger dokumentáció
+
+```
+http://localhost:3000/api/api-docs/
+```

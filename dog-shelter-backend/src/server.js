@@ -3,7 +3,9 @@ const morgan = require("morgan");
 const cors = require('cors');
 const path = require("path")
 const logger = require("./config/logger");
-const createError = require("http-errors")
+const createError = require("http-errors");
+const YAML = require("yamljs")
+const swaggerUI = require("swagger-ui-express")
 const dogRoutes = require("./controllers/dog/dog.routes");
 const userRoutes = require("./controllers/user/user.routes")
 const appointmentRoutes = require("./controllers/appointment/appointment.routes")
@@ -15,7 +17,6 @@ app.use(cors());
 
 //auth
 const authenticationByJWT = require("./auth/authenticate")
-const login = require("./auth/login")             //refresh nélküli működés, authHandler kiváltotta
 const adminRoleHandler = require ("./auth/adminOnly")
 const authHandler = require("./auth/authHandler")
 
@@ -25,17 +26,17 @@ app.use(morgan("combined", {
     }
 }));
 
-//express 4.16 felett:
+
 app.use(express.json());
 
+app.use("/api/api-docs", swaggerUI.serve, swaggerUI.setup(YAML.load("./docs/openapi.yaml")))
+
 //auth végpont:
-// app.post("/login", login)            //refresh nélküli működés
 app.post("/api/login", authHandler.login)
 app.post("/api/refresh", authHandler.refresh)
 app.post("/api/logout", authHandler.logout)
 
-//autentikáció, autorizáció:
-//app.use("/dog", authenticationByJWT, adminRoleHandler, dogRoutes)
+
 app.use("/api/dog", dogRoutes)
 app.use("/api/user", userRoutes)
 app.use("/api/appointment", appointmentRoutes)
