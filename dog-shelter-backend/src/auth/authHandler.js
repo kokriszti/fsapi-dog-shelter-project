@@ -25,12 +25,6 @@ module.exports.login = (req, res) => {    //nem kell next, mert bejelentkezésko
                     isAdmin: user.isAdmin,
                     _id: user._id
                 }, process.env.REFRESH_TOKEN_SECRET_KEY)
-                //való életben db-be mentés ehelyett:
-                //refreshTokenList.push(refreshToken)
-
-                //     console.log(refreshToken)
-                //     res.json({accessToken, refreshToken});
-                // }
 
                 const myRefreshToken = new RefreshToken({token: refreshToken})
                 console.log(myRefreshToken)
@@ -65,38 +59,42 @@ module.exports.refresh = (req, res) => {
 
     if(!refreshToken) {
         res.sendStatus(401);
-    }
-
-    RefreshToken.findOne({token: refreshToken})
-        .then(refreshToken => {
-            if(!refreshToken) {
-                res.sendStatus(403);
-            }
-            jwt.verify(refreshToken.token, process.env.REFRESH_TOKEN_SECRET_KEY, (err, user) => {
-                if (err) {
-                    console.log("nem találta meg a db-ben")
+    } else {
+        RefreshToken.findOne({token: refreshToken})
+            .then(refreshToken => {
+                if(!refreshToken) {
                     res.sendStatus(403);
+                } else {
+                    jwt.verify(refreshToken.token, process.env.REFRESH_TOKEN_SECRET_KEY, (err, user) => {
+                        if (err) {
+                            console.log("nem találta meg a db-ben")
+                            res.sendStatus(403);
+                        }
+
+                        const accessToken = jwt.sign({
+                            username: user.username,
+                            isAdmin: user.isAdmin,
+                            _id: user._id
+                        }, process.env.ACCESS_TOKEN_SECRET_KEY, {
+                            expiresIn: process.env.TOKEN_EXPIRY
+                        });
+
+                        res.json({
+                            accessToken,
+                            userData: {
+                                username: user.username,
+                                isAdmin: user.isAdmin,
+                                _id: user._id
+                            }
+                        })
+                        //return;
+                    })
                 }
 
-                const accessToken = jwt.sign({
-                    username: user.username,
-                    isAdmin: user.isAdmin,
-                    _id: user._id
-                }, process.env.ACCESS_TOKEN_SECRET_KEY, {
-                    expiresIn: process.env.TOKEN_EXPIRY
-                });
-
-                res.json({
-                    accessToken,
-                    userData: {
-                        username: user.username,
-                        isAdmin: user.isAdmin,
-                        _id: user._id
-                    }
-                })
-                //return;
             })
-        })
+    }
+
+
 
 
 }
