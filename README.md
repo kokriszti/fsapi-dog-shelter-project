@@ -87,7 +87,7 @@ A felhasználó létrehozhatja a felhasználói fiókját, felhasználónév és
 
 A felhasználó bejelentkezhet felhasználónév és jelszó megadásával.
 
-*Csak bejelentkezést követően elérhető képernyők:*
+*Bejelentkezést követően elérhető képernyők:*
 
 ### Időpontfoglalás
 
@@ -139,9 +139,9 @@ A felhasználó megtekintheti a látogatásra érkező gazdijelölt örökbefoga
 - PATCH /dog/:id - kutya örökbeadása
 - DELETE /dog/:id - kutya törlése
 - GET /appointment – lefoglalt látogatások lekérdezése
-- GET /appointment:id – látogatás adatainak lekérdezése
+- GET /appointment/:id – látogatás adatainak lekérdezése
 - POST /appointment – új látogatás létrehozása
-- DELETE /appointment:id – látogatás törlése
+- DELETE /appointment/:id – látogatás törlése
 
 # Adatstruktúra
 
@@ -212,3 +212,44 @@ A felhasználó megtekintheti a látogatásra érkező gazdijelölt örökbefoga
 - date
 - time
 - comment?
+
+# Az alkalmazás futtatása
+
+```
+cd dog-shelter-backend
+```
+
+```
+npm run docker:compose
+```
+# Teszt adatok bejelentkezéshez
+
+*Admin jogosultsággal rendelkező felhasználó:*
+
+```
+Felhasználónév: admin
+Jelszó: admin
+```
+
+*Admin jogosultsággal nem rendelkező felhasználó:*
+
+```
+Felhasználónév: user
+Jelszó: user
+```
+
+
+# Tesztek futtatása
+
+```
+cd dog-shelter-backend
+```
+
+```
+npm i
+```
+
+```
+npm run test
+```
+
