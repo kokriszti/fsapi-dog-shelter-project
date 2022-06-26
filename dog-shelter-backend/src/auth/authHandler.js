@@ -107,9 +107,10 @@ module.exports.logout = (req, res) => {
         .then(refreshToken => {
             if(!refreshToken) {
                 res.sendStatus(403);
+            } else {
+                RefreshToken.findByIdAndRemove(refreshToken._id)
+                    .then(() => res.sendStatus(200))
             }
-            RefreshToken.findByIdAndRemove(refreshToken._id)
-                .then(() => res.sendStatus(200))
 
         })
 
