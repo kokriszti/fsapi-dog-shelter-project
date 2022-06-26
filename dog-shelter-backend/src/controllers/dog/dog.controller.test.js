@@ -2,10 +2,12 @@ const {mockRequest, mockResponse} = require("jest-mock-req-res")
 const createError = require("http-errors");
 const dogController = require("./dog.controller")
 const dogService = require("./dog.service")
+const appointmentController = require("../appointment/appointment.controller");
+const appointmentService = require("../appointment/appointment.service");
 
 jest.mock("./dog.service")
 
-describe("AppointmentController tests", () => {
+describe("DogController tests", () => {
 
     let mockData;
 
@@ -81,7 +83,6 @@ describe("AppointmentController tests", () => {
 
         return dogController.update(request, response, nextFunction)
             .then(() => {
-                // check if PersonService.update() is called correctly
                 const updateObj = {
                     status: UPDATE_STATUS,
                     name: UPDATE_NAME,
@@ -89,7 +90,6 @@ describe("AppointmentController tests", () => {
                 };
                 expect(dogService.update).toBeCalledWith(UPDATE_DOG_ID, updateObj);
 
-                // check if response is correct
                 const responseDOG = {
                     id: UPDATE_DOG_ID,
                     status: UPDATE_STATUS,
@@ -97,6 +97,36 @@ describe("AppointmentController tests", () => {
                     gender: UPDATE_GENDER
                 };
                 expect(response.json).toBeCalledWith(responseDOG);
+            });
+    });
+
+    test("findAll()", () => {
+        const FILTER = {};
+
+        const request = mockRequest();
+
+        return dogController.findAll(request, response, nextFunction)
+            .then(() => {
+                expect(dogService.findAll).toBeCalledWith(FILTER);
+
+                expect(response.json).toBeCalledWith(mockData);
+            });
+    });
+
+    test("delete() with valid ID", () => {
+        const DELETE_DOG_ID = "3"
+
+        const request = mockRequest({
+            params: {
+                id: DELETE_DOG_ID
+            }
+        })
+
+        return dogController.delete(request, response, nextFunction)
+            .then(() => {
+                expect(dogService.delete).toBeCalledWith(DELETE_DOG_ID);
+
+                expect(response.json).toBeCalledWith({});
             });
     });
 

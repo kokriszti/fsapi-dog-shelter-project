@@ -15,15 +15,15 @@ router.get("/:id", (req, res, next) => {
     return controller.findOne(req, res, next)
 })
 
-router.post("/", authenticationByJWT, (req, res, next) =>{
+router.post("/", authenticationByJWT, adminRoleHandler, (req, res, next) =>{
     return controller.create(req, res, next)
 })
 
-router.put("/:id", (req, res, next) => {
+router.put("/:id", authenticationByJWT, adminRoleHandler, (req, res, next) => {
     return controller.update(req, res, next)
 })
 
-router.patch("/:id", (req, res, next) => {
+router.patch("/:id", authenticationByJWT, adminRoleHandler, (req, res, next) => {
     return controller.patch(req, res, next)
 })
 

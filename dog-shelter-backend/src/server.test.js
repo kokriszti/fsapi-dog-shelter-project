@@ -168,9 +168,6 @@ describe("REST API integration tests", () => {
             "kennelNr": "11",
         }
         const resp = await supertest(app).post("/api/dog").send(newDog).expect(401)
-        // expect(resp.body.lastName).toBe(newUser.lastName)
-        // expect(resp.body.firstName).toBe(newUser.firstName)
-        // expect(resp.body.phone).toBe(newUser.phone)
     });
 
     test("POST /api/user endpoint test", async () => {
@@ -208,6 +205,13 @@ describe("REST API integration tests", () => {
             expect(resp.body.firstName).toBe(newUser.firstName)
             expect(resp.body.phone).toBe(newUser.phone)
     });
+
+    test("PATCH api/dog/:id endpoint test without auth", async () => {
+        const testDogs = await Dog.insertMany(insertDogData);
+        const firstDogId = testDogs[0]._id;
+        testDogs[0].name = "UpdateTest"
+        const resp = await supertest(app).patch(`/api/dog/${firstDogId.toString()}`, testDogs[0]).expect(401)
+    })
 
     test("GET api/user/:id endpoint test without auth", async () => {
         const testUsers = await User.insertMany(insertUserData);
@@ -262,6 +266,23 @@ describe("REST API integration tests", () => {
         const firstAppointmentId = testAppointments[0]._id;
         const resp = await supertest(app).get(`/api/appointment/${firstAppointmentId.toString()}`).expect(401)
     })
+
+    test("POST /api/appointment endpoint test", async () => {
+        const newAppointment = {
+            "date": "2022-06-12",
+            "time": "10:00",
+            "comment": "Maecenas ut massa quis augue.",
+            "dog": "",
+            "user": ""
+        }
+        const testUsers = await User.insertMany(insertUserData);
+        const firstUserId = testUsers[0]._id;
+        const testDogs = await Dog.insertMany(insertDogData);
+        const firstDogId = testDogs[0]._id;
+        newAppointment.user = firstUserId;
+        newAppointment.dog = firstDogId;
+        const resp = await supertest(app).post("/api/appointment").send(newAppointment).expect(201)
+    });
 
 
 })

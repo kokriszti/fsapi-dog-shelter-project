@@ -10,6 +10,10 @@ appointmentService.findAll = jest.fn((filter, sorted) => {
     return Promise.resolve(mockData)
 });
 
+appointmentService.delete = jest.fn((id) => {
+    return Promise.resolve({})
+});
+
 
 appointmentService.__setMockData = data => {
     mockData = data;

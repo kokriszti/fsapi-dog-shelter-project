@@ -2,6 +2,8 @@ const {mockRequest, mockResponse} = require("jest-mock-req-res")
 const createError = require("http-errors");
 const appointmentController = require("./appointment.controller")
 const appointmentService = require("./appointment.service")
+const dogController = require("../dog/dog.controller");
+const dogService = require("../dog/dog.service");
 
 jest.mock("./appointment.service")
 
@@ -79,5 +81,21 @@ describe("AppointmentController tests", () => {
             });
     });
 
+    test("delete() with valid ID", () => {
+        const DELETE_APPOINTMENT_ID = "3"
+
+        const request = mockRequest({
+            params: {
+                id: DELETE_APPOINTMENT_ID
+            }
+        })
+
+        return appointmentController.delete(request, response, nextFunction)
+            .then(() => {
+                expect(appointmentService.delete).toBeCalledWith(DELETE_APPOINTMENT_ID);
+
+                expect(response.json).toBeCalledWith({});
+            });
+    });
 
 });

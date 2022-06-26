@@ -10,6 +10,14 @@ dogService.update = jest.fn((id, update) => {
     return Promise.resolve(Object.assign(mockData.find(p => p.id === id), update));
 });
 
+dogService.findAll = jest.fn((filter) => {
+    return Promise.resolve(mockData)
+});
+
+dogService.delete = jest.fn((id) => {
+    return Promise.resolve({})
+});
+
 
 dogService.__setMockData = data => {
     mockData = data;
