@@ -93,6 +93,7 @@ const UserSchema = new mongoose.Schema({
             required: true
         }
     },
+    //toDo: kiszedni, megnézni nincs-e vhová bekötve:
     appointment: {
         type: mongoose.Schema.Types.ObjectId,       //ehhez kell: npm i mongoose-id-validator
         ref: "Appointment"
