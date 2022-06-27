@@ -56,10 +56,15 @@ export class AppointmentComponent implements OnInit, OnDestroy {
       next: (dog) => {this.selectedDog = dog},
       error: (e) => {console.log(e)}
     })
+    //toDo kiszedni
+    // this.userSignInSubscription = this.authService.getUserLoggedInObject().subscribe(
+    //   user => this.selectedUser = user
+    // )
+    if (typeof localStorage.getItem('user')  === "string") {
+      const userFromStorage: any = localStorage.getItem('user')
+      this.selectedUser = JSON.parse(userFromStorage);
+    }
 
-    this.userSignInSubscription = this.authService.getUserLoggedInObject().subscribe(
-      user => this.selectedUser = user
-    )
   }
 
 
