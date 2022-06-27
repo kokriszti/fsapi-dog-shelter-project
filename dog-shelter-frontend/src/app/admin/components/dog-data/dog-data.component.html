@@ -11,36 +11,63 @@
         <div class="card-body">
           <h3 class="card-title">{{selectedDog?.name}}</h3>
           <p class="hm-card-text-email text-start"> <span class="fst-italic fw-bolder text-muted">
-            <i class="fa-solid fa-arrows-up-down"></i>
-            Termet: </span>  <span class="hm-card-mail">{{selectedDog?.size}}</span></p>
+<!--            <i class="fa-solid fa-arrows-up-down"></i>-->
+            Termet: </span>  <span class="hm-card-mail">{{selectedDog?.size}}</span>
+          </p>
           <p class="hm-card-text-email text-start"> <span class="fst-italic fw-bolder text-muted">
-            <i *ngIf="selectedDog?.gender === 'szuka'" class="fa-solid fa-venus"></i>
-            <i *ngIf="selectedDog?.gender === 'kan'" class="fa-solid fa-mars"></i>
-            Nem: </span>  <span class="hm-card-mail">{{selectedDog?.gender}}</span></p>
+<!--            <i *ngIf="selectedDog?.gender === 'szuka'" class="fa-solid fa-venus"></i>-->
+<!--            <i *ngIf="selectedDog?.gender === 'kan'" class="fa-solid fa-mars"></i>-->
+            Nem: </span>  <span class="hm-card-mail">{{selectedDog?.gender}}</span>
+          </p>
           <p class="hm-card-text-email text-start"> <span class="fst-italic fw-bolder text-muted">
-            <i class="fa-solid fa-calendar-days"></i>
-            Születési idő: </span>  <span class="hm-card-mail">{{selectedDog?.dateOfBirth}}</span></p>
+<!--            <i class="fa-solid fa-calendar-days"></i>-->
+            Születési idő: </span>  <span class="hm-card-mail">{{selectedDog?.dateOfBirth}}</span>
+          </p>
+          <p class="hm-card-text-email text-start"> <span class="fst-italic fw-bolder text-muted">
+            Kennel: </span>  <span class="hm-card-mail">{{selectedDog?.kennelNr}}</span>
+          </p>
+          <p class="hm-card-text-email text-start"> <span class="fst-italic fw-bolder text-muted">
+            Oltási sor teljes: </span>  <span class="hm-card-mail">{{selectedDog?.isVaccinated ? "igen" : "nem"}}</span>
+          </p>
+          <p class="hm-card-text-email text-start"> <span class="fst-italic fw-bolder text-muted">
+            Ivartalanítva: </span>  <span class="hm-card-mail">{{selectedDog?.isSterilized ? "igen" : "nem"}}</span>
+          </p>
           <p *ngIf="selectedDog?.activity" class="hm-card-text-email text-start">
             <span class="fst-italic fw-bolder text-muted">
-              <i class="fa-solid fa-bolt-lightning"></i>
+<!--              <i class="fa-solid fa-bolt-lightning"></i>-->
               Aktivitási szint: </span>
             <span class="hm-card-mail">{{selectedDog?.activity}}</span>
           </p>
           <p *ngIf="selectedDog?.hasOwnProperty('toChild')" class="hm-card-text-email text-start">
             <span class="fst-italic fw-bolder text-muted">
-              <i class="fa-solid fa-baby"></i>
+<!--              <i class="fa-solid fa-baby"></i>-->
               Gyerek mellé: </span>
             <span class="hm-card-mail">{{selectedDog?.toChild ? "igen" : "nem"}}</span>
           </p>
           <p *ngIf="selectedDog?.hasOwnProperty('toFlat')" class="hm-card-text-email text-start">
             <span class="fst-italic fw-bolder text-muted">
-              <i class="fa-solid fa-building"></i>
+<!--              <i class="fa-solid fa-building"></i>-->
               Lakásba: </span>
             <span class="hm-card-mail">{{selectedDog?.toFlat ? "igen" : "nem"}}</span>
           </p>
-          <!-- ngIf-fel aktivitás szint, lakásba, gyerek mellé-->
           <p class="hm-card-text text-start fst-italic fw-bolder text-muted mb-1">Jellemzés:</p>
           <p class="card-text text-start">{{selectedDog?.description}}</p>
+
+          <p *ngIf="selectedDog?.status === 'adopted'" class="hm-card-text text-start fst-italic fw-bolder text-muted mb-2">Örökbefogadó adatai:</p>
+          <p *ngIf="selectedDog?.status === 'adopted'" class="hm-card-text-email text-start"> <span class="fst-italic fw-bolder text-muted">
+            Név: </span>  <span class="hm-card-mail">{{selectedDog?.owner?.ownerLastName}} {{ selectedDog?.owner?.ownerFirstName}}</span>
+          </p>
+          <p *ngIf="selectedDog?.status === 'adopted'" class="hm-card-text-email text-start"> <span class="fst-italic fw-bolder text-muted">
+            Cím: </span>  <span class="hm-card-mail">{{selectedDog?.owner?.ownerAddress?.zip}} {{selectedDog?.owner?.ownerAddress?.city}} {{selectedDog?.owner?.ownerAddress?.streetAndNr}}</span>
+          </p>
+          <p *ngIf="selectedDog?.status === 'adopted'" class="hm-card-text-email text-start"> <span class="fst-italic fw-bolder text-muted">
+            Telefonszám: </span>  <span class="hm-card-mail">{{selectedDog?.owner?.ownerPhone}}</span>
+          </p>
+          <p *ngIf="selectedDog?.status === 'adopted'" class="hm-card-text-email text-start"> <span class="fst-italic fw-bolder text-muted">
+            Örökbeadva: </span>  <span class="hm-card-mail">{{selectedDog?.owner?.dateOfAdoption}}</span>
+          </p>
+
+
           <div class="mb-2">
             <a class="hm-btn text-white" routerLink="form"><i class="fa-solid fa-pencil"></i> Adatok szerkesztése</a>
           </div>

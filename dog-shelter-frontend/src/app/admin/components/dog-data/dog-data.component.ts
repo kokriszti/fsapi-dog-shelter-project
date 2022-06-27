@@ -29,7 +29,7 @@ export class DogDataComponent implements OnInit, OnDestroy {
     ownerAddress: new FormGroup({
       zip: new FormControl("", [Validators.required, Validators.pattern(/^\d{4}$/)]),
       city: new FormControl("", [Validators.required, Validators.maxLength(40), Validators.pattern(/^[a-záéíóöőúüűA-ZÁÉÍÓÖŐÚÜŰ ]+$/)]),
-      streetAndNr: new FormControl("", [Validators.required, Validators.minLength(5), Validators.maxLength(100), Validators.pattern(/^[a-záéíóöőúüűA-ZÁÉÍÓÖŐÚÜŰ0-9 /]+$/)])
+      streetAndNr: new FormControl("", [Validators.required, Validators.minLength(5), Validators.maxLength(100), Validators.pattern(/^[a-záéíóöőúüűA-ZÁÉÍÓÖŐÚÜŰ0-9 ./]+$/)])
     }),
     dateOfAdoption: new FormControl("", [Validators.required, this.dateValidator]),
   })
@@ -94,8 +94,9 @@ export class DogDataComponent implements OnInit, OnDestroy {
 
     if (this.selectedDog) {
       this.dogService.patchDog(this.selectedDog, updateBody).subscribe({
-        next: (data: any) => {
-          console.log(data);
+        next: (dog: any) => {
+          console.log(dog);
+          this.selectedDog = dog
           this.adoptionEditMode = false
         },
         error: (e) => {console.log(e);
