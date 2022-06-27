@@ -40,7 +40,7 @@ paths:
                     type: string
                   isAdmin:
                     type: boolean
-                  id:
+                  _id:
                     type: string
         '404':
           description: Username or password invalid
@@ -97,7 +97,7 @@ paths:
                     type: string
                   isAdmin:
                     type: boolean
-                  id:
+                  _id:
                     type: string
         '403':
           description: Refresh unsuccessful
