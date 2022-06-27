@@ -1,28 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Atma:wght@300;500&display=swap');
+
 .hero-image-container {
   height: 30rem;
   //background-image: url("https://ld-wp73.template-help.com/wordpress/prod_20230/v1/wp-content/uploads/2018/09/home-top-bg.jpg");
   //background-image: url("https://media.istockphoto.com/photos/silhouette-of-young-woman-and-pet-dog-shaking-hands-picture-id470724052?b=1&k=20&m=470724052&s=170667a&w=0&h=jmKUnIpm54ouPLfBIxH8pzmG53Gda12_uttVXgtIOKc=");
-  background-image: url("../../../../assets/hero-image.jpg");
+  background-image: url("../../../../assets/hero-image_phone.jpg");
   background-repeat: no-repeat;
-  background-position: center, right;
+  background-position: center, center;
   background-size: cover;
   position: relative;
 }
 .welcome-message-container{
-  min-height: 9rem;
-  //background: linear-gradient(0deg, rgba(9,90,100,0) 0%, rgba(9,90,100,0.7483368347338936) 44%, rgba(9,90,100,1) 100%);
+  width: 40%;
+  margin: auto;
+  text-align: center;
 }
 
 .welcome-line {
   color:white;
-  font-family: 'Amatic SC', cursive;
-  font-weight: bold;
-  font-size: 9vw;
+  font-family: 'Atma', cursive;
+  font-weight: 400;
+  font-size: 2rem;
+  //max-width: 40%;
+  text-align: center;
 }
 
-.hero-text {
-  width: 60vw;
-}
 
 .mission-image-container1 {
   height: 15rem;
@@ -122,27 +124,29 @@ fa-icon {
   font-size: 3rem;
   box-shadow:  7px 7px 15px 0px rgb(0 0 0 / 32%);
 }
-.number-1 {
-  color: #FFD223;
-}
-.number-2 {
-  color: #095a64;
-}
-.number-3 {
-  color: #f71919;
-  box-shadow: 7px 7px 15px 0px #0000006b;
-}
-.number-4 {
-  color: #64c30a;
-}
 
 @media screen and (min-width: 768px) {
+  .hero-image-container {
+    height: 30rem;
+    //background-image: url("https://ld-wp73.template-help.com/wordpress/prod_20230/v1/wp-content/uploads/2018/09/home-top-bg.jpg");
+    //background-image: url("https://media.istockphoto.com/photos/silhouette-of-young-woman-and-pet-dog-shaking-hands-picture-id470724052?b=1&k=20&m=470724052&s=170667a&w=0&h=jmKUnIpm54ouPLfBIxH8pzmG53Gda12_uttVXgtIOKc=");
+    background-image: url("../../../../assets/hero-image.jpg");
+    background-repeat: no-repeat;
+    background-position: center, right;
+    background-size: cover;
+    position: relative;
+  }
+  .welcome-message-container{
+    max-width: 40%;
+    display: block;
+    text-align: left;
+    margin: 0px;
+  }
+
   .welcome-line {
     font-size: 5rem;
   }
-  .hero-text {
-    width: 40vw;
-  }
+
   .icon-text {
     color: transparent;
     transition: color 0.2s ease-in-out;
@@ -167,7 +171,9 @@ fa-icon {
   .hero-image-container {
     height: 40rem;
   }
-  .hero-text {
-    width: 30vw;
+  .welcome-line {
+    line-height: 10rem;
+    font-size: 8rem;
   }
+
 }
