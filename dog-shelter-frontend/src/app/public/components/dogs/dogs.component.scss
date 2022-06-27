@@ -14,7 +14,7 @@
   color:white;
   font-family: 'Amatic SC', cursive;
   font-weight: bold;
-  font-size: 5rem;
+  font-size: 11vw;
 }
 
 .hm-card {
@@ -84,5 +84,9 @@
   .hm-card:hover .hm-btn {
     opacity: 1;
     transform: scale(1)
+  }
+
+  .title-line {
+    font-size: 5rem;
   }
 }

@@ -84,7 +84,7 @@ fa-icon {
 .student-opinions-title {
   font-family: 'Amatic SC', cursive;
   font-weight: bold;
-  font-size: 3rem;
+  font-size: 6vw;
   text-decoration: underline;
 }
 
@@ -156,6 +156,10 @@ fa-icon {
 
   .icon-column:hover .icon-text{
     color: white;
+  }
+
+  .student-opinions-title {
+    font-size: 3rem;
   }
 }
 
