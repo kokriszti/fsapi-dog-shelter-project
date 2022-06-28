@@ -12,7 +12,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   public userObject: any;
   private userSignInSubscription?: Subscription;
-  private userRefreshSubscription?: Subscription;
+  // private userRefreshSubscription?: Subscription;
 
   constructor(private authService: AuthService, private router: Router) { }
 
@@ -21,10 +21,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
       user => this.userObject = user
     )
 
+    this.userObject = this.authService.userObjectValue;
+
     //toDo: kell ide? auth service constructorbanmár bent van, kipróbálni:
-    if(localStorage.getItem("refreshToken")) {
-      this.userRefreshSubscription = this.authService.refreshUserAuthentication().subscribe()
-    }
+    // if(localStorage.getItem("refreshToken")) {
+    //   this.userRefreshSubscription = this.authService.refreshUserAuthentication().subscribe()
+    // }
   }
 
   public logout(): void {
@@ -38,7 +40,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     if(this.userSignInSubscription) this.userSignInSubscription.unsubscribe();
     //toDo: ha onInitben nem kell, ezt is kiszedni:
-    if(this.userRefreshSubscription) this.userRefreshSubscription.unsubscribe();
+    // if(this.userRefreshSubscription) this.userRefreshSubscription.unsubscribe();
   }
 
 }
