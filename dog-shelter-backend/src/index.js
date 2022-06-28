@@ -8,10 +8,10 @@ const app = require("./server")
 const port = config.port;
 
 //ellenőrzés, ha nem talál pl adatbázis config adatokat, álljon le:
-if(!config.has("database")){
-    logger.error("No database config found");
-    process.exit()
-}
+// if(!config.has("database")){
+//     logger.error("No database config found");
+//     process.exit()
+// }
 
 //simán beégetve:
 mongoose.connect("mongodb+srv://demo:demo@democluster.g1k5w.mongodb.net/testdb?retryWrites=true&w=majority")
