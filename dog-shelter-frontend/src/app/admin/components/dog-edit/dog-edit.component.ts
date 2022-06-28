@@ -173,7 +173,7 @@ export class DogEditComponent implements OnInit, OnDestroy {
         next: (dog: DogModel) => {
           console.log(dog);
           this.dogForm.reset()
-          this.router.navigate(["admin", "dogs"])
+          this.router.navigate(["admin", "dogs", this.selectedDog?._id])
         },
         error: (e) => {console.log(e);
         },

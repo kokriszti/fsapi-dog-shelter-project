@@ -15,7 +15,7 @@
       <td>{{appointment.time}}</td>
       <td><a routerLink="/admin/dogs/{{appointment.dog._id}}">{{appointment.dog.name}}</a></td>
       <td>{{appointment.user.adoptionForm.lastName}} {{appointment.user.adoptionForm.firstName}}
-        <i title="Információ a gazdijelöltről" class="fa-solid fa-circle-info" routerLink="user-data/{{appointment.user._id}}"></i>
+        <a routerLink="user-data/{{appointment.user._id}}"><i title="Információ a gazdijelöltről" class="fa-solid fa-circle-info fa-xs" ></i></a>
       </td>
       <td>{{appointment.comment}}</td>
     </tr>
