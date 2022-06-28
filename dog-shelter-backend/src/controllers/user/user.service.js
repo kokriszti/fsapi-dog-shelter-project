@@ -9,7 +9,6 @@ exports.findAll = () => {
 //READ BY ID:
 exports.findOne = id => {
     return User.findById(id)
-    //  .populate("appointments", {_id: 0})          //toDo: ezzel a sorral megnézni
 }
 
 //CREATE:
@@ -20,7 +19,7 @@ exports.create = userData => {
 
 //UPDATE PUT:
 exports.update = (id, updateData) => {
-    return User.findByIdAndUpdate(id, updateData, {new: true, overwrite: true, runValidators: true})       //toDo: overwrite:true felülírja az objektumot, kipróbálni
+    return User.findByIdAndUpdate(id, updateData, {new: true, overwrite: true, runValidators: true})
 }
 
 //UPDATE PATCH:

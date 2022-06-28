@@ -35,12 +35,7 @@ exports.findOne = (req, res, next) => {
 
 //CREATE
 exports.create = async (req, res, next) => {
-    //toDo: validáció ehelyett:
 
-    // if(!req.body["first_name"] || !req.body["last_name"] || !req.body["email"]) {
-    //     return next(new createError.BadRequest("Invalid request body"))     //ahhoz, hogy felismerje a hibatípust: npm i @types/http-errors
-    // }                                                                           //BadRequest már tartalmazza a 400-as st kódot
-    //szét lehet szedni a feltételt, és külön hibaüziket írni
     try {
         const user = await userService.create(req.body)
         res.status(201).json(user)
@@ -52,11 +47,6 @@ exports.create = async (req, res, next) => {
 
 //UPDATE
 exports.update = async (req, res, next) => {
-    //toDo: validáció ehelyett:
-
-    // if(!req.body["first_name"] || !req.body["last_name"] || !req.body["email"]) {
-    //     return next(new createError.BadRequest("Invalid request body"))     //ahhoz, hogy felismerje a hibatípust: npm i @types/http-errors
-    // }
 
     try {
         const user = await userService.update(req.params.id, req.body)        //{new: true} - válaszban a módosítottat adja vissza, nem az eredetit

@@ -12,7 +12,7 @@ if(!config.has("database")){
     logger.error("No database config found");
     process.exit()
 }
-//ToDo: csak egy féle kapcsolat maradjon
+
 //simán beégetve:
 mongoose.connect("mongodb+srv://demo:demo@democluster.g1k5w.mongodb.net/testdb?retryWrites=true&w=majority")
 .then(() => logger.info("MongoDB connection has been established successfully"))
