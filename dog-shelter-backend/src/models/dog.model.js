@@ -1,6 +1,6 @@
 const mongoose = require("mongoose")
 
-//toDo: owner nem required, de ha van, a mezői igen:
+
 const DogSchema = new mongoose.Schema({
     status: {
         type: String,

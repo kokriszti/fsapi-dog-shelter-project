@@ -2,7 +2,6 @@ const mongoose = require("mongoose")
 const idValidator = require("mongoose-id-validator")
 
 const AppointmentSchema = new mongoose.Schema({
-    //toDo: adatstruktúrát átírni sajátra:
     date: {
         type: String,
         required: true

@@ -162,5 +162,4 @@ export class AdoptionFormComponent implements OnInit {
     }   //if valid vége
 
   }  //onSubmit vége
-
 }
