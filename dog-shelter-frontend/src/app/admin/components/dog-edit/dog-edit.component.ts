@@ -182,10 +182,17 @@ export class DogEditComponent implements OnInit, OnDestroy {
         },
       })
     }
+  }     //onSubmit vége
 
-
+  public cancel(): void {
+    this.dogForm.reset()
+    if (this.selectedDog) {
+      this.router.navigate(["admin", "dogs", this.selectedDog?._id])
+    }
+    else {
+      this.router.navigate(["admin", "dogs"])
+    }
   }
-
 
 
   }

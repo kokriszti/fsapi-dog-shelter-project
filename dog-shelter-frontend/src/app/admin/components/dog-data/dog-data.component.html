@@ -132,8 +132,11 @@
                 <input type="date" [min]="minDate" [max]="maxDate" formControlName="dateOfAdoption" name="dateOfAdoption" id="dateOfAdoption">
                 <small *ngIf="ownerForm.get('dateOfAdoption')?.invalid && ownerForm.get('dateOfAdoption')?.touched" class="text-danger">Érvénytelen dátum!</small>
               </div>
-              <button class="hm-btn text-white" [disabled]="ownerForm.invalid" (click)="adopt()"><i class="fa-solid fa-paw"></i> Örökbe adás</button>
+              <div class="mb-2">
+                <button class="hm-btn text-white" [disabled]="ownerForm.invalid" (click)="adopt()"><i class="fa-solid fa-paw"></i> Örökbe adás</button>
+              </div>
 <!--              <button class="hm-btn text-white" (click)="adopt()"><i class="fa-solid fa-paw"></i> Örökbe adás</button>-->
+              <button  class="btn btn-sm btn-outline-secondary" (click)="cancel()">Mégse</button>
 
 
             </form>

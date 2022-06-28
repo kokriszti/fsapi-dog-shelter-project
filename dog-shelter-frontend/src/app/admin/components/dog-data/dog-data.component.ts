@@ -103,9 +103,11 @@ export class DogDataComponent implements OnInit, OnDestroy {
         },
       })
     }
+  }     //adopt vége
 
-
-
+  public cancel(): void {
+    this.ownerForm.reset()
+    this.adoptionEditMode = false
   }
 
 }
