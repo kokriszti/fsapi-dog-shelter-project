@@ -10,7 +10,8 @@
             <p class="hm-card-text-email text-start"> <span class="fst-italic fw-bolder text-muted">
               Felhasználónév: </span>  <span class="hm-card-mail">{{selectedUser?.username}}</span></p>
             <p class="hm-card-text-email text-start"> <span class="fst-italic fw-bolder text-muted">
-              Jelszó: </span>  <button class="hm-btn text-white mb-2" (click)="changePassword()"><i class="fa-solid fa-pencil"></i>Jelszó módosítása</button></p>
+              Jelszó: </span>  <button class="hm-btn text-white mb-2" (click)="changePassword()"><i class="fa-solid fa-pencil"></i>Jelszó módosítása</button>
+            </p>
 
 
           </div>
@@ -28,6 +29,7 @@
         <div class="my-3">
           <label for="registerLoginPassword" class="form-label">Jelszó</label>
           <input formControlName="password" type="password" class="form-control" id="registerLoginPassword">
+          <small *ngIf="userForm.get('password')?.invalid && userForm.get('password')?.touched" class="text-danger">Minimum 4 karakter</small>
         </div>
 
         <div class="my-3">

@@ -25,7 +25,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
 
   public userForm: FormGroup = new FormGroup({
     username: new FormControl("", Validators.required),
-    password: new FormControl("", Validators.required),
+    password: new FormControl("", [Validators.required, Validators.minLength(4)]),
     confirmPassword: new FormControl("", Validators.required)
   })
 
