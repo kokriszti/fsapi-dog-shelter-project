@@ -24,8 +24,10 @@ export class AppointmentComponent implements OnInit, OnDestroy {
   public reservedAppointments: AppointmentPopulatedModel[] = []
   public minDate: string = ""
   public maxDate: string = ""
+  public today: string = ""
   public appointmentTaken: boolean = false
   public selectedUser: any;
+  public hasAppointment: boolean = false;
   private userSignInSubscription?: Subscription;
 
   public appointmentForm: FormGroup = new FormGroup({
@@ -42,6 +44,8 @@ export class AppointmentComponent implements OnInit, OnDestroy {
               private authService: AuthService) { }
 
   ngOnInit(): void {
+
+    this.today = this.dateService.dateToString(0)
 
     this.minDate = this.dateService.dateToString(1)
     //másnaptól azév végéig
@@ -103,35 +107,48 @@ export class AppointmentComponent implements OnInit, OnDestroy {
           //ha nincs ez az időpont még lefoglalva:
           if (this.reservedAppointments.length <= 0) {
 
-            //nullcheck:
-            if (this.selectedDog && this.selectedDog._id ) {
+            let queryObj2: any = {}
+            queryObj2.user = this.selectedUser._id;
+            queryObj2.date_gte = this.today;
 
-              //userID és név egyelőre beégetett, autentikáció után cserélni
-              const newAppointment: AppointmentModel = {
-                dog: this.selectedDog._id,
-                //toDo: usert dinamikussá:
-                //user: "6293b58bdc9f697f23468c8d",
-                user: this.selectedUser._id,
-                date: this.appointmentForm.get("date")?.value,
-                time: this.appointmentForm.get("time")?.value,
-                comment: this.appointmentForm.get("comment")?.value
-              }
+            this.appointmentService.getAppointments(queryObj2).subscribe({
+              next: ownAppointments => {
+                //ha usernek nincs még lefoglalt jövőbeli időpontja:
+                if (ownAppointments.length <= 0) {
+                  //nullcheck:
+                  if (this.selectedDog && this.selectedDog._id ) {
 
-              this.appointmentService.saveAppointment(newAppointment).subscribe({
-                next: (appointment) => {
-                  console.log(appointment)
-                  this.appointmentForm.reset()
-                  this.router.navigate(["dogs", this.selectedDog?._id])
-                },
-                error: (e) => {
-                  console.log(e)
+                    const newAppointment: AppointmentModel = {
+                      dog: this.selectedDog._id,
+                      user: this.selectedUser._id,
+                      date: this.appointmentForm.get("date")?.value,
+                      time: this.appointmentForm.get("time")?.value,
+                      comment: this.appointmentForm.get("comment")?.value
+                    }
+
+                    this.appointmentService.saveAppointment(newAppointment).subscribe({
+                      next: (appointment) => {
+                        console.log(appointment)
+                        this.appointmentForm.reset()
+                        this.router.navigate(["dogs", this.selectedDog?._id])
+                      },
+                      error: (e) => {
+                        console.log(e)
+                      }
+                    })    //saveappointment vége
+
+                  }   //nullcheck vége
+                } else {
+                  //ha már van jövőbeli időpontja
+                  this.hasAppointment = true;
                 }
-              })    //saveappointment vége
+              }       //belső next vége
+            })
 
-            }   //nullcheck vége
+
 
           } else {
-
+            //ha az időpont már foglalt
             this.appointmentTaken = true;
             console.log("Ez az időpont már foglalt, kérjük válassz másikat!")
           }//külső if vége

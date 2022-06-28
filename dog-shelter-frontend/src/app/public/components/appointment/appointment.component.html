@@ -46,6 +46,7 @@
               <textarea formControlName="comment" class="form-control" id="inputComment" rows="3"></textarea>
               <small *ngIf="appointmentForm.get('comment')?.invalid && appointmentForm.get('comment')?.touched" class="text-danger">Maximum 500 karakter</small>
               <small *ngIf="appointmentTaken" class="text-danger">Ez az időpont már foglalt, kérjük válassz másikat!</small>
+              <small *ngIf="hasAppointment" class="text-danger">Már van lefoglalt időpontod! Ha másikat szeretnél, az Adataim menüpontban törölnöd kell az előzőt.</small>
             </div>
 
             <button class="hm-btn text-white mb-2" [disabled]=appointmentForm.invalid type="submit"><i class="fa-solid fa-paw"></i> Lefoglalom</button>
