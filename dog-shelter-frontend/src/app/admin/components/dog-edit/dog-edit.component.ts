@@ -169,6 +169,9 @@ export class DogEditComponent implements OnInit, OnDestroy {
     } else  if (this.selectedDog){                 //ha meglévő kutyát frissítünk
       myDog.status = this.selectedDog.status;
       myDog._id = this.selectedDog._id;
+      if (this.selectedDog.status === "adopted") {
+        myDog.owner = this.selectedDog.owner
+      }
       this.dogService.updateDog(myDog).subscribe({
         next: (dog: DogModel) => {
           console.log(dog);
