@@ -1,0 +1,8 @@
+{
+  "port": 3000,
+  "log-level-file": "info",
+  "log-level-console": "debug",
+  "database": {
+    "host": "mongo:27017/testdb?retryWrites=true&w=majority"
+  }
+}
