@@ -1,8 +1,80 @@
 # Menhely alkalmazás
 
-Az Add A Mancsod Alapítvány elektronikus nyilvántartással szeretné gördülékenyebbé tenni kutyamenhelyük örökbefogadási folyamatát. A projektem célja egy működő alkalmazás fejlesztése, mely elősegíti, hogy a gazdára váró kutyák mielőbb szerető családra találjanak.
+Projektem célja a képzeletbeli Add A Mancsod Alapítvány számára elektronikus nyilvántartás segítségével gördülékenyebbé tenni kutyamenhelyük örökbefogadási folyamatát.
 
-Az elkészítendő rendszerben a menhely dolgozói a gondozásukban álló kutyákról teljes körű nyilvántartást vezethetnek. Az érdeklődő gazdijelöltek megtekinthetik a gazdikereső kutyákat, regisztrálhatnak, az örökbefogadáshoz kérdőívet tölthetnek ki, illetve belépést követően időpontot foglalhatnak a kiválasztott kutya személyes meglátogatására. A menhely dolgozói megtekinthetik a látogatások listáját, és a gazdijelölt öröbefogadási kérdőívre adott válaszait.
+Az elkészült rendszerben a menhely dolgozói a gondozásukban álló kutyákról teljes körű nyilvántartást vezethetnek. Az érdeklődő gazdijelöltek megtekinthetik a gazdikereső kutyákat, regisztrálhatnak, az örökbefogadáshoz kérdőívet tölthetnek ki, illetve belépést követően időpontot foglalhatnak a kiválasztott kutya személyes meglátogatására. A menhely dolgozói megtekinthetik a látogatások listáját, és a gazdijelölt öröbefogadási kérdőívre adott válaszait.
+
+# Képernyőkép válogatás
+
+### *Asztali nézet*
+
+![dog_shelter_app_desktop](screenshots/dog_shelter_app_desktop.jpg)
+
+### *Mobil nézet*
+
+![dog_shelter_app_mobile](screenshots/dog_shelter_app_mobile.jpg)
+
+# Alkalmazott technológiák
+
+### Frontend
+- HTML5
+- SCSS
+- TypeScript
+- Angular
+- Bootstrap5
+
+### Backend
+- Node.js
+- Express
+- MongoDB
+- JWT authentication
+- Docker
+
+# Az alkalmazás futtatása
+
+```
+cd dog-shelter-backend
+```
+
+```
+npm run docker:compose
+```
+# Teszt adatok bejelentkezéshez
+
+*Admin jogosultsággal rendelkező felhasználó:*
+
+```
+Felhasználónév: admin
+Jelszó: admin
+```
+
+*Admin jogosultsággal nem rendelkező felhasználó:*
+
+```
+Felhasználónév: user
+Jelszó: user
+```
+
+
+# Tesztek futtatása
+
+```
+cd dog-shelter-backend
+```
+
+```
+npm i
+```
+  
+```
+npm run test
+```
+
+# Swagger dokumentáció
+
+```
+http://localhost:3000/api/api-docs/
+```
 
 # Entitások
 
@@ -19,48 +91,6 @@ A menhely által nyilvántartott kutya. Státusza szerint lehet gazdikereső vag
 ## Appointment
 
 Lefoglalt látogatás, amelyben tároljuk a látogatás dátumát és időpontját, a meglátogatandó kutya, és a látogatásra érkező gazdijelölt azonosítóját, opcionálisan a gazdijelölt megjegyzését.
-
-# User story lista, feladatok
-
-A felhasználó regisztrál és belép az alkalmazásba
-
-- Regisztrációs képernyő megvalósítása
-- API regisztrációs végpont implementálása (POST /user)
-- Login képernyő megvalósítása
-- API login végpont implementálása (POST /login)
-- JWT autentikáció implementáció, kliens oldali hozzáférés szabályozása autentikáció alapján
-
-A felhasználó megtekinti a gazdikereső kutyákat
-
-- Kutya lista képernyő implementálása
-- GET /dog végpont implementálása az örökbefogadható kutyák lekérdezéséhez
-- Kutya részletek képernyő implementálása
-- GET /dog/:id végpont implementálása kutya részleteinek lekérdezéséhez
-
-A felhasználó időpontot foglal
-
-- Időpontfoglalás képernyő implementálása
-- POST /appointment végpont implementálása az időpont lefoglalásához
-
-A felhasználó megtekinti a profilját
-
-- Felhasználói adatok képernyő implementálása
-- GET /user/:id végpont implementálása felhasználó adatainak lekérdezéséhez
-- PATCH /user/:id végpont implementálása felhasználó jelszavának módosításához
-- PUT /user/:id végpont implementálása felhasználó adatainak módosításához
-- GET /appointment végpont implementálása felhasználó időpontjának lekérdezéséhez
-- DELETE /appointment/:id végpont implementálása felhasználó időpontjának törléséhez
-
-Admin megtekinti és kezeli a nyilvántartott kutyákat 
-- Kutya lista képernyő implementálása
-- POST /dog végpont implementálása kutya létrehozásához
-- DELETE /dog/:id végpont implementálása kutya törléséhez
-- Kutya részletek képernyő implementálása
-- PUT /dog/:id végpont implementálása kutya adatainak szerkesztéséhez
-- PATCH /dog/:id végpont implementálása kutya örökbe adásához
-
-Admin megtekinti a lefoglalt időpontokat
-- Időpont lista képernyő implementálása
 
 # Képernyők
 
@@ -213,48 +243,4 @@ A felhasználó megtekintheti a látogatásra érkező gazdijelölt örökbefoga
 - time
 - comment?
 
-# Az alkalmazás futtatása
 
-```
-cd dog-shelter-backend
-```
-
-```
-npm run docker:compose
-```
-# Teszt adatok bejelentkezéshez
-
-*Admin jogosultsággal rendelkező felhasználó:*
-
-```
-Felhasználónév: admin
-Jelszó: admin
-```
-
-*Admin jogosultsággal nem rendelkező felhasználó:*
-
-```
-Felhasználónév: user
-Jelszó: user
-```
-
-
-# Tesztek futtatása
-
-```
-cd dog-shelter-backend
-```
-
-```
-npm i
-```
-
-```
-npm run test
-```
-
-# Swagger dokumentáció
-
-```
-http://localhost:3000/api/api-docs/
-```
