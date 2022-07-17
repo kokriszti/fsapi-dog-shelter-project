@@ -8,6 +8,8 @@
           <div class="card-body">
     <form [formGroup]="dogForm" (ngSubmit)="onSubmit()" class="row g-3">
 
+      <legend>Kutya adatai</legend>
+
       <div>
         <label for="dogName" class="form-label"> Név </label>
         <input formControlName="name" type="text" class="form-control" id="dogName" />
