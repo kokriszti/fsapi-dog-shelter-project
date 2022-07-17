@@ -3,6 +3,8 @@
   "log-level-file": "info",
   "log-level-console": "debug",
   "database": {
-    "host": "mongo:27017/testdb?retryWrites=true&w=majority"
+    "user": "demo",
+    "password": "demo",
+    "host": "democluster.g1k5w.mongodb.net/testdb?retryWrites=true&w=majority"
   }
 }

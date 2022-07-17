@@ -28,7 +28,6 @@ Az elkészült rendszerben a menhely dolgozói a gondozásukban álló kutyákr�
 - Express
 - MongoDB
 - JWT authentication
-- Docker
 
 # Az alkalmazás futtatása
 
@@ -37,7 +36,11 @@ cd dog-shelter-backend
 ```
 
 ```
-npm run docker:compose
+npm install
+```
+
+```
+npm run start
 ```
 # Teszt adatok bejelentkezéshez
 
@@ -63,7 +66,7 @@ cd dog-shelter-backend
 ```
 
 ```
-npm i
+npm install
 ```
   
 ```
